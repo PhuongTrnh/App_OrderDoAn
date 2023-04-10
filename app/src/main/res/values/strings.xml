@@ -1,3 +1,43 @@
 <resources>
-    <string name="app_name">store</string>
+    <string name="app_name">Store</string>
+    <string name="hint_username">Your email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_oldpassword">Old Password</string>
+    <string name="hint_newpassword">New Password</string>
+    <string name="tv_forgotpassword">Forgot your password?</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_register">REGISTER</string>
+    <string name="tv_haveanaccount">Already have an account?</string>
+    <string name="hint_confirmpassword">Confirm Password</string>
+    <string name="hint_confirmnewpassword">Confirm new password</string>
+    <string name="et_fullname">Your full name</string>
+    <string name="et_mail">Your email address</string>
+    <string name="btn_submit">SUBMIT</string>
+    <string name="btn_back">BACK</string>
+    <string name="appbar_product">PRODUCT</string>
+    <string name="notify">Sorry. No product available!</string>
+    <string name="title_activity_tab_menu">TabMenuActivity</string>
+    <string name="title_product">Product</string>
+    <string name="title_cart">Cart</string>
+    <string name="title_profile">Profile</string>
+    <string name="add_to_cart">ADD TO CART</string>
+    <string name="place_an_order">PLACE AN ORDER</string>
+    <string name="confirm">CONFIRM</string>
+    <string name="cancel">CANCEL</string>
+    <string name="received">RECEIVED</string>
+    <string name="appbar_editprofile">EDIT PROFILE</string>
+    <string name="appbar_changepass">CHANGE PASSWORD</string>
+    <string name="appbar_orderhistory">ORDER HISTORY</string>
+    <string name="delivery_info">INFORMATION OF RECEIVER</string>
+    <string name="order_info">INFORMATION OF ORDER</string>
+    <string name="verify_title">VERIFY YOUR EMAIL</string>
+    <string name="title_activity_add_product">AddProductActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

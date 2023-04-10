@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.store.R;
+import com.example.store.activity.product.AddProductActivity;
 import com.example.store.activity.user.AddUserActivity;
 import com.example.store.activity.user.ChangePasswordActivity;
 import com.example.store.activity.user.EditProfileActivity;
@@ -111,10 +112,10 @@ public class ProfileFragment extends Fragment {
 //                            startActivity(intentHistory);
 //                            break;
                         case 3:
-//                            Intent intentAddProduct = new Intent(getContext(), AddProductActivity.class);
-//                            intentAddProduct.putExtra(ARG_IDUSER, mParamIDUser);
-//                            startActivity(intentAddProduct);
-//                            break;
+                            Intent intentAddProduct = new Intent(getContext(), AddProductActivity.class);
+                            intentAddProduct.putExtra(ARG_IDUSER, mParamIDUser);
+                            startActivity(intentAddProduct);
+                            break;
                         case 4:
 //                            Intent intentAddCategory = new Intent(getContext(), AddCategoryActivity.class);
 //                            intentAddCategory.putExtra(ARG_IDUSER, mParamIDUser);
