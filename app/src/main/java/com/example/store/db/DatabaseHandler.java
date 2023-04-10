@@ -18,11 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import com.example.store.bean.CategoryProduct;
+import com.example.store.bean.Product;
 import com.example.store.bean.Role;
 import com.example.store.bean.User;
 import com.example.store.constants.DB;
 
-public class DatabaseHandler extends SQLiteOpenHelper{
+public class DatabaseHandler extends SQLiteOpenHelper {
 
     public DatabaseHandler(Context context) {
         super(context, DB.DATABASE_NAME, null, DB.DATABASE_VERSION);
@@ -77,7 +79,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
                 + "source BLOB(255),"
                 + "address NVARCHAR(255),"
                 + "CONSTRAINT fk_user_idrole FOREIGN KEY(role) REFERENCES role(id)"
-                +")";
+                + ")";
         db.execSQL(CREATE_USER_TABLE);
 
         String CREATE_CART_TABLE = "CREATE TABLE " + TABLE_CART
@@ -119,10 +121,38 @@ public class DatabaseHandler extends SQLiteOpenHelper{
                 + "CONSTRAINT fk_billdetail_idbill FOREIGN KEY(idbill) REFERENCES bill(id)"
                 + ")";
         db.execSQL(CREATE_BILLDETAIL_TABLE);
-        String INSEST_VALUE_TABLEROLE_ADMIN = "INSERT INTO "+ TABLE_ROLE + " VALUES(1, 'ADMIN')";
-        String INSEST_VALUE_TABLEROLE_USER = "INSERT INTO "+ TABLE_ROLE + " VALUES(2, 'USER')";
+        String INSEST_VALUE_TABLEROLE_ADMIN = "INSERT INTO " + TABLE_ROLE + " VALUES(1, 'ADMIN')";
+        String INSEST_VALUE_TABLEROLE_USER = "INSERT INTO " + TABLE_ROLE + " VALUES(2, 'USER')";
         db.execSQL(INSEST_VALUE_TABLEROLE_ADMIN);
         db.execSQL(INSEST_VALUE_TABLEROLE_USER);
+
+        String INSERT_VALUE_USER = "INSERT INTO user (name, email, phone, password, verifyemail, state, role)\n" +
+                "VALUES\n" +
+                "('admin', 'admin@gmail.com', '0123456789', 'abcdabcd', 1, 1, 1),\n" +
+                "('user1', 'user@gmail.com', '0987654321', 'abcdabcd', 1, 1, 2);";
+        String INSERT_VALUE_CATEGORY_PRODUCT = "INSERT INTO categoryproduct (name, source)\n" +
+                "VALUES \n" +
+                "    ('Beverages', NULL),\n" +
+                "    ('Snacks', NULL),\n" +
+                "    ('Sandwiches', NULL);\n";
+        String INSERT_VALUE_PRODUCT = "INSERT INTO product (name, category, price, description, source, quantity, state)\n" +
+                "VALUES \n" +
+                "    ('Cola', 1, 2.99, '12 oz can', NULL, 100, 1),\n" +
+                "    ('Chips', 2, 1.49, 'Bag of potato chips', NULL, 50, 1),\n" +
+                "    ('Turkey Club', 3, 8.99, 'Bacon, lettuce, tomato, turkey', NULL, 25, 1),\n" +
+                "    ('Burger', 3, 6.99, 'Quarter-pound beef patty with lettuce, tomato, onion, and pickles', NULL, 50, 1),\n" +
+                "    ('Fries', 2, 2.49, 'Large order of French fries', NULL, 100, 1),\n" +
+                "    ('Hot Dog', 3, 3.99, 'All-beef hot dog with ketchup, mustard, and relish', NULL, 25, 1),\n" +
+                "    ('Pizza', 3, 12.99, 'Large cheese pizza with tomato sauce and crust', NULL, 10, 1),\n" +
+                "    ('Chicken Tenders', 3, 8.49, 'Crispy chicken strips with dipping sauce', NULL, 30, 1),\n" +
+                "    ('Soft Drink', 1, 1.99, '20 oz cup of soda', NULL, 75, 1),\n" +
+                "    ('Ice Cream', 2, 3.99, 'Single scoop of vanilla ice cream', NULL, 20, 1),\n" +
+                "    ('Taco', 3, 2.99, 'Beef or chicken taco with lettuce, tomato, and cheese', NULL, 40, 1),\n" +
+                "    ('Nachos', 2, 4.99, 'Tortilla chips with melted cheese and jalapenos', NULL, 15, 1),\n" +
+                "    ('Burrito', 3, 7.49, 'Large burrito with rice, beans, meat, cheese, and salsa', NULL, 20, 1);";
+        db.execSQL(INSERT_VALUE_USER);
+        db.execSQL(INSERT_VALUE_CATEGORY_PRODUCT);
+        db.execSQL(INSERT_VALUE_PRODUCT);
 
     }
 
@@ -144,7 +174,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
     //region ROLE
 
-    public void insertRole(Role role){
+    public void insertRole(Role role) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -154,73 +184,73 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     }
 
 
-
     //endregion
 
     //region CATEGORY PRODUCT
-//    public void insertCategoryProduct(CategoryProduct categoryProduct){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put("name", categoryProduct.getsName());
-//        values.put("source", categoryProduct.getsSource());
-//        db.insert(TABLE_CATEGORYPRODUCT, null, values);
-//        db.close();
-//    }
-//
-//    public int updateCategoryProduct(CategoryProduct categoryProduct){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put("name", categoryProduct.getsName());
-//        values.put("source", categoryProduct.getsSource());
-//        return db.update(TABLE_CATEGORYPRODUCT, values, "id = ?", new String[]{String.valueOf(categoryProduct.getiID())});
-//    }
-//
-//    public void deleteCategoryProduct(CategoryProduct categoryProduct){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        db.delete(TABLE_CATEGORYPRODUCT, "id = ? ", new String[]{String.valueOf(categoryProduct.getiID())});
-//        db.close();
-//    }
-//
-//    public CategoryProduct getCategoryProduct(int id){
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        String query = "SELECT * FROM " + TABLE_CATEGORYPRODUCT + " WHERE id = " + String.valueOf(id);
-//
-//        Cursor cursor = db.rawQuery(query, null);
-//        if(cursor != null){
-//            cursor.moveToFirst();
-//        }
-//        CategoryProduct categoryProduct = new CategoryProduct();
-//        categoryProduct.setiID(Integer.parseInt(cursor.getString(0)));
-//        categoryProduct.setsName(cursor.getString(1));
-//        categoryProduct.setsSource(cursor.getBlob(2));
-//        cursor.close();
-//        return categoryProduct;
-//    }
-//
-//    public List<CategoryProduct> getListCategoryProduct(){
-//        List<CategoryProduct> categoryProductList = new ArrayList<>();
-//        String query = "SELECT * FROM " + TABLE_CATEGORYPRODUCT;
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, null);
-//        if (cursor.moveToFirst()) {
-//            do {
-//                CategoryProduct categoryProduct = new CategoryProduct();
-//                categoryProduct.setiID(Integer.parseInt(cursor.getString(0)));
-//                categoryProduct.setsName(cursor.getString(1));
-//                categoryProduct.setsSource(cursor.getBlob(2));
-//                // Adding contact to list
-//                categoryProductList.add(categoryProduct);
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return  categoryProductList;
-//    }
-//
-    public List<Role> getListRoles(){
+    public void insertCategoryProduct(CategoryProduct categoryProduct) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("name", categoryProduct.getsName());
+        values.put("source", categoryProduct.getsSource());
+        db.insert(TABLE_CATEGORYPRODUCT, null, values);
+        db.close();
+    }
+
+    public int updateCategoryProduct(CategoryProduct categoryProduct) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("name", categoryProduct.getsName());
+        values.put("source", categoryProduct.getsSource());
+        return db.update(TABLE_CATEGORYPRODUCT, values, "id = ?", new String[]{String.valueOf(categoryProduct.getiID())});
+    }
+
+    public void deleteCategoryProduct(CategoryProduct categoryProduct) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(TABLE_CATEGORYPRODUCT, "id = ? ", new String[]{String.valueOf(categoryProduct.getiID())});
+        db.close();
+    }
+
+    public CategoryProduct getCategoryProduct(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_CATEGORYPRODUCT + " WHERE id = " + String.valueOf(id);
+
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        CategoryProduct categoryProduct = new CategoryProduct();
+        categoryProduct.setiID(Integer.parseInt(cursor.getString(0)));
+        categoryProduct.setsName(cursor.getString(1));
+        categoryProduct.setsSource(cursor.getBlob(2));
+        cursor.close();
+        return categoryProduct;
+    }
+
+    public List<CategoryProduct> getListCategoryProduct() {
+        List<CategoryProduct> categoryProductList = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLE_CATEGORYPRODUCT;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                CategoryProduct categoryProduct = new CategoryProduct();
+                categoryProduct.setiID(Integer.parseInt(cursor.getString(0)));
+                categoryProduct.setsName(cursor.getString(1));
+                categoryProduct.setsSource(cursor.getBlob(2));
+                // Adding contact to list
+                categoryProductList.add(categoryProduct);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return categoryProductList;
+    }
+
+    //
+    public List<Role> getListRoles() {
         List<Role> roleList = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_ROLE;
 
@@ -236,9 +266,10 @@ public class DatabaseHandler extends SQLiteOpenHelper{
             } while (cursor.moveToNext());
         }
         cursor.close();
-        return  roleList;
+        return roleList;
     }
-//
+
+    //
 //    public Role getRoleById(int id){
 //        SQLiteDatabase db = this.getReadableDatabase();
 //        String query = "SELECT * FROM " + TABLE_ROLE + " WHERE id = " + String.valueOf(id);
@@ -256,122 +287,122 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 ////endregion
 //
 //    //region PRODUCT
-//    public void insertProduct(Product product){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put("name", product.getsName());
-//        values.put("category", product.getiIDCategory());
-//        values.put("price", product.getlPrice());
-//        values.put("description", product.getsDescription());
-//        values.put("source", product.getsSource());
-//        values.put("quantity", product.getiQuantity());
-//        values.put("state", product.getiState());
-//        db.insert(TABLE_PRODUCT, null, values);
-//        db.close();
-//    }
-//
-//    public int updateProduct(Product product){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put("name", product.getsName());
-//        values.put("category", product.getiIDCategory());
-//        values.put("price", product.getlPrice());
-//        values.put("description", product.getsDescription());
-//        values.put("source", product.getsSource());
-//        values.put("quantity", product.getiQuantity());
-//        values.put("state", product.getiState());
-//        return db.update(TABLE_PRODUCT, values, "id = ?", new String[]{String.valueOf(product.getiID())});
-//    }
-//
-//    public void deleteProduct(Product product){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        db.delete(TABLE_PRODUCT, "id = ? ", new String[]{String.valueOf(product.getiID())});
-//        db.close();
-//    }
-//
-    public void deleteUser(User user){
+    public void insertProduct(Product product) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("name", product.getsName());
+        values.put("category", product.getiIDCategory());
+        values.put("price", product.getlPrice());
+        values.put("description", product.getsDescription());
+        values.put("source", product.getsSource());
+        values.put("quantity", product.getiQuantity());
+        values.put("state", product.getiState());
+        db.insert(TABLE_PRODUCT, null, values);
+        db.close();
+    }
+
+    public int updateProduct(Product product) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("name", product.getsName());
+        values.put("category", product.getiIDCategory());
+        values.put("price", product.getlPrice());
+        values.put("description", product.getsDescription());
+        values.put("source", product.getsSource());
+        values.put("quantity", product.getiQuantity());
+        values.put("state", product.getiState());
+        return db.update(TABLE_PRODUCT, values, "id = ?", new String[]{String.valueOf(product.getiID())});
+    }
+
+    public void deleteProduct(Product product) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(TABLE_PRODUCT, "id = ? ", new String[]{String.valueOf(product.getiID())});
+        db.close();
+    }
+
+    public void deleteUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.delete(TABLE_USER, "id = ? ", new String[]{String.valueOf(user.getiID())});
         db.close();
     }
-//
-//    public Product getProduct(int id){
-//        String query = "SELECT * FROM " + TABLE_PRODUCT + " WHERE id = ? ";
-//        Product product = new Product();
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, new String[]{id + ""});
-//        if (cursor.moveToFirst()) {
-//            product.setiID(cursor.getInt(0));
-//            product.setsName(cursor.getString(1));
-//            product.setiIDCategory(cursor.getInt(2));
-//            product.setlPrice(cursor.getLong(3));
-//            product.setsDescription(cursor.getString(4));
-//            product.setsSource(cursor.getBlob(5));
-//            product.setiQuantity(cursor.getInt(6));
-//            product.setiState(cursor.getInt(7));
-//        }
-//        cursor.close();
-//        return product;
-//    }
-//
-//    public List<Product> getListProduct(){
-//        List<Product> productList = new ArrayList<Product>();
-//        String query = "SELECT * FROM " + TABLE_PRODUCT;
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, null);
-//        if (cursor.moveToFirst()) {
-//            do {
-//                Product product = new Product();
-//                product.setiID(cursor.getInt(0));
-//                product.setsName(cursor.getString(1));
-//                product.setiIDCategory(cursor.getInt(2));
-//                product.setlPrice(cursor.getLong(3));
-//                product.setsDescription(cursor.getString(4));
-//                product.setsSource(cursor.getBlob(5));
-//                product.setiQuantity(cursor.getInt(6));
-//                product.setiState(cursor.getInt(7));
-//                // Adding contact to list
-//                productList.add(product);
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return productList;
-//    }
-//
-//    public List<Product> getListProductByCategory(int idcategory){
-//        List<Product> productList = new ArrayList<Product>();
-//        String query = "SELECT * FROM " + TABLE_PRODUCT + " WHERE category = ? AND state = 1 " ;
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, new String[]{idcategory + ""});
-//        if (cursor.moveToFirst()) {
-//            do {
-//                Product product = new Product();
-//                product.setiID(cursor.getInt(0));
-//                product.setsName(cursor.getString(1));
-//                product.setiIDCategory(idcategory);
-//                product.setlPrice(cursor.getLong(3));
-//                product.setsDescription(cursor.getString(4));
-//                product.setsSource(cursor.getBlob(5));
-//                product.setiQuantity(cursor.getInt(6));
-//                product.setiState(cursor.getInt(7));
-//                // Adding contact to list
-//                productList.add(product);
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return productList;
-//    }
-//
-//    //endregion
-//
-//    //region REGISTER
-    public boolean checkIfEmailExists(String userEmail){
+
+    public Product getProduct(int id) {
+        String query = "SELECT * FROM " + TABLE_PRODUCT + " WHERE id = ? ";
+        Product product = new Product();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, new String[]{id + ""});
+        if (cursor.moveToFirst()) {
+            product.setiID(cursor.getInt(0));
+            product.setsName(cursor.getString(1));
+            product.setiIDCategory(cursor.getInt(2));
+            product.setlPrice(cursor.getLong(3));
+            product.setsDescription(cursor.getString(4));
+            product.setsSource(cursor.getBlob(5));
+            product.setiQuantity(cursor.getInt(6));
+            product.setiState(cursor.getInt(7));
+        }
+        cursor.close();
+        return product;
+    }
+
+    public List<Product> getListProduct() {
+        List<Product> productList = new ArrayList<Product>();
+        String query = "SELECT * FROM " + TABLE_PRODUCT;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Product product = new Product();
+                product.setiID(cursor.getInt(0));
+                product.setsName(cursor.getString(1));
+                product.setiIDCategory(cursor.getInt(2));
+                product.setlPrice(cursor.getLong(3));
+                product.setsDescription(cursor.getString(4));
+                product.setsSource(cursor.getBlob(5));
+                product.setiQuantity(cursor.getInt(6));
+                product.setiState(cursor.getInt(7));
+                // Adding contact to list
+                productList.add(product);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return productList;
+    }
+
+    public List<Product> getListProductByCategory(int idcategory) {
+        List<Product> productList = new ArrayList<Product>();
+        String query = "SELECT * FROM " + TABLE_PRODUCT + " WHERE category = ? AND state = 1 ";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, new String[]{idcategory + ""});
+        if (cursor.moveToFirst()) {
+            do {
+                Product product = new Product();
+                product.setiID(cursor.getInt(0));
+                product.setsName(cursor.getString(1));
+                product.setiIDCategory(idcategory);
+                product.setlPrice(cursor.getLong(3));
+                product.setsDescription(cursor.getString(4));
+                product.setsSource(cursor.getBlob(5));
+                product.setiQuantity(cursor.getInt(6));
+                product.setiState(cursor.getInt(7));
+                // Adding contact to list
+                productList.add(product);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return productList;
+    }
+
+    //endregion
+
+    //    //region REGISTER
+    public boolean checkIfEmailExists(String userEmail) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String query = "select email from " + TABLE_USER;
@@ -389,8 +420,9 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         }
         return false;
     }
+
     //
-    public boolean checkIfPhoneExists(String userPhone){
+    public boolean checkIfPhoneExists(String userPhone) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String query = "select phone from " + TABLE_USER;
@@ -407,8 +439,9 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         }
         return false;
     }
+
     //
-    public boolean checkIfPhoneExistsEdit(String userPhone){
+    public boolean checkIfPhoneExistsEdit(String userPhone) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String query = "select phone from " + TABLE_USER;
@@ -422,17 +455,18 @@ public class DatabaseHandler extends SQLiteOpenHelper{
                     check = check + 1;
                 }
             } while (cursor.moveToNext());
-            if(check != 1)
+            if (check != 1)
                 return true;
         }
         return false;
     }
+
     //
-    public boolean checkOldPassword(int id, String oldpass){
+    public boolean checkOldPassword(int id, String oldpass) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String query = "select password from " + TABLE_USER + " where id = ? ";
-        Cursor cursor = db.rawQuery(query, new String[]{id+""});
+        Cursor cursor = db.rawQuery(query, new String[]{id + ""});
         String oldPass;
         if (cursor.moveToFirst()) {
             do {
@@ -443,8 +477,9 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         }
         return false;
     }
+
     //
-    public void registerUser(User user){
+    public void registerUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -456,16 +491,17 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         values.put("state", user.getiState());
         values.put("role", user.getiRole());
         values.put("source", user.getsSource());
-        values.put("address",user.getsAddress());
+        values.put("address", user.getsAddress());
         db.insert(TABLE_USER, null, values);
         db.close();
     }
+
     //    //endregion
 //
 //    //region User
-    public List<User> getListUser(){
+    public List<User> getListUser() {
         List<User> userList = new ArrayList<User>();
-        String query = "SELECT id,name,email,phone,role,state,source,address FROM " + TABLE_USER ;
+        String query = "SELECT id,name,email,phone,role,state,source,address FROM " + TABLE_USER;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -487,21 +523,23 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         cursor.close();
         return userList;
     }
+
     //
-    public int getIDUser(String emailInput){
+    public int getIDUser(String emailInput) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT id FROM " + TABLE_USER + " WHERE email = '" + emailInput + "'";
 
         Cursor cursor = db.rawQuery(query, null);
-        if(cursor != null){
+        if (cursor != null) {
             cursor.moveToFirst();
         }
         int iduser = Integer.parseInt(cursor.getString(0));
         cursor.close();
         return iduser;
     }
+
     //
-    public User getUser(int id){
+    public User getUser(int id) {
         String query = "SELECT id,name,email,phone,role,state,source,address FROM " + TABLE_USER + " WHERE id = ? ";
         User user = new User();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -519,21 +557,23 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         cursor.close();
         return user;
     }
+
     //
-    public int updateUser(User user){
+    public int updateUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put("name", user.getsName());
         values.put("phone", user.getsPhone());
         values.put("address", user.getsAddress());
-        values.put("source",user.getsSource());
+        values.put("source", user.getsSource());
 
         return db.update(TABLE_USER, values, "id = ?", new String[]{String.valueOf(user.getiID())});
 
     }
+
     //
-    public int changePassword(User user){
+    public int changePassword(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -542,10 +582,11 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         return db.update(TABLE_USER, values, "id = ?", new String[]{String.valueOf(user.getiID())});
 
     }
+
     //    //endregion
 //
 //    //region Login
-    public boolean checkLogin(String userEmail, String passWord){
+    public boolean checkLogin(String userEmail, String passWord) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String query = "select email,password from " + TABLE_USER;
