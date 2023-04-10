@@ -151,7 +151,6 @@ public class AddEditProductActivity extends AppCompatActivity {
 
     // User Click on the Save button.
     public void buttonSaveClicked()  {
-        ImageViewToByteArray();
         DatabaseHandler db = new DatabaseHandler(this);
         String name = this.textName.getText().toString();
         String price = this.textPrice.getText().toString();
@@ -165,6 +164,11 @@ public class AddEditProductActivity extends AppCompatActivity {
             return;
         }
 
+        if (this.imgProduct != null) {
+            this.source = ImageViewToByteArray(this.imgProduct);
+        } else {
+            this.source = null;
+        }
         if(mode == MODE_CREATE ) {
             if(this.source!=null) {
                 this.product = new Product(name,Long.parseLong(price),textDescription,Integer.parseInt(textQuantity),idCategory,this.source);
@@ -240,11 +244,13 @@ public class AddEditProductActivity extends AppCompatActivity {
         }
     }
 
-    private void ImageViewToByteArray(){
+    private byte[] ImageViewToByteArray(ImageView imageView){
         // Lưu hình dạng byte[]
-        Bitmap image = ((BitmapDrawable) this.imgProduct.getDrawable()).getBitmap();
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
+        Bitmap bitmap = bitmapDrawable.getBitmap();
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        source = baos.toByteArray();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
     }
 }
