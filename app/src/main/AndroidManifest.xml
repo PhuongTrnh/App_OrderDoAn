@@ -17,7 +17,12 @@
 
         <activity android:name=".activity.user.ChangePasswordActivity" />
         <activity android:name=".activity.user.EditProfileActivity" />
-
+        <activity
+            android:name=".activity.category.AddEditCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.category.AddCategoryActivity"
+            android:exported="false" />
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.login.ForgotPasswordActivity" />
         <activity android:name=".activity.login.RegisterActivity" />

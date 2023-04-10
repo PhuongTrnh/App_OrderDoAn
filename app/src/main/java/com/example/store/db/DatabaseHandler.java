@@ -19,8 +19,9 @@ import java.util.List;
 
 
 import com.example.store.bean.Role;
-import com.example.store.bean.User;
 import com.example.store.constants.DB;
+import com.example.store.bean.User;
+import com.example.store.bean.CategoryProduct;
 
 public class DatabaseHandler extends SQLiteOpenHelper{
 
@@ -158,68 +159,68 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     //endregion
 
     //region CATEGORY PRODUCT
-//    public void insertCategoryProduct(CategoryProduct categoryProduct){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put("name", categoryProduct.getsName());
-//        values.put("source", categoryProduct.getsSource());
-//        db.insert(TABLE_CATEGORYPRODUCT, null, values);
-//        db.close();
-//    }
-//
-//    public int updateCategoryProduct(CategoryProduct categoryProduct){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put("name", categoryProduct.getsName());
-//        values.put("source", categoryProduct.getsSource());
-//        return db.update(TABLE_CATEGORYPRODUCT, values, "id = ?", new String[]{String.valueOf(categoryProduct.getiID())});
-//    }
-//
-//    public void deleteCategoryProduct(CategoryProduct categoryProduct){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        db.delete(TABLE_CATEGORYPRODUCT, "id = ? ", new String[]{String.valueOf(categoryProduct.getiID())});
-//        db.close();
-//    }
-//
-//    public CategoryProduct getCategoryProduct(int id){
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        String query = "SELECT * FROM " + TABLE_CATEGORYPRODUCT + " WHERE id = " + String.valueOf(id);
-//
-//        Cursor cursor = db.rawQuery(query, null);
-//        if(cursor != null){
-//            cursor.moveToFirst();
-//        }
-//        CategoryProduct categoryProduct = new CategoryProduct();
-//        categoryProduct.setiID(Integer.parseInt(cursor.getString(0)));
-//        categoryProduct.setsName(cursor.getString(1));
-//        categoryProduct.setsSource(cursor.getBlob(2));
-//        cursor.close();
-//        return categoryProduct;
-//    }
-//
-//    public List<CategoryProduct> getListCategoryProduct(){
-//        List<CategoryProduct> categoryProductList = new ArrayList<>();
-//        String query = "SELECT * FROM " + TABLE_CATEGORYPRODUCT;
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, null);
-//        if (cursor.moveToFirst()) {
-//            do {
-//                CategoryProduct categoryProduct = new CategoryProduct();
-//                categoryProduct.setiID(Integer.parseInt(cursor.getString(0)));
-//                categoryProduct.setsName(cursor.getString(1));
-//                categoryProduct.setsSource(cursor.getBlob(2));
-//                // Adding contact to list
-//                categoryProductList.add(categoryProduct);
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return  categoryProductList;
-//    }
-//
+   public void insertCategoryProduct(CategoryProduct categoryProduct){
+       SQLiteDatabase db = this.getWritableDatabase();
+
+       ContentValues values = new ContentValues();
+       values.put("name", categoryProduct.getsName());
+       values.put("source", categoryProduct.getsSource());
+       db.insert(TABLE_CATEGORYPRODUCT, null, values);
+       db.close();
+   }
+
+   public int updateCategoryProduct(CategoryProduct categoryProduct){
+       SQLiteDatabase db = this.getWritableDatabase();
+
+       ContentValues values = new ContentValues();
+       values.put("name", categoryProduct.getsName());
+       values.put("source", categoryProduct.getsSource());
+       return db.update(TABLE_CATEGORYPRODUCT, values, "id = ?", new String[]{String.valueOf(categoryProduct.getiID())});
+   }
+
+   public void deleteCategoryProduct(CategoryProduct categoryProduct){
+       SQLiteDatabase db = this.getWritableDatabase();
+
+       db.delete(TABLE_CATEGORYPRODUCT, "id = ? ", new String[]{String.valueOf(categoryProduct.getiID())});
+       db.close();
+   }
+
+   public CategoryProduct getCategoryProduct(int id){
+       SQLiteDatabase db = this.getReadableDatabase();
+       String query = "SELECT * FROM " + TABLE_CATEGORYPRODUCT + " WHERE id = " + String.valueOf(id);
+
+       Cursor cursor = db.rawQuery(query, null);
+       if(cursor != null){
+           cursor.moveToFirst();
+       }
+       CategoryProduct categoryProduct = new CategoryProduct();
+       categoryProduct.setiID(Integer.parseInt(cursor.getString(0)));
+       categoryProduct.setsName(cursor.getString(1));
+       categoryProduct.setsSource(cursor.getBlob(2));
+       cursor.close();
+       return categoryProduct;
+   }
+
+   public List<CategoryProduct> getListCategoryProduct(){
+       List<CategoryProduct> categoryProductList = new ArrayList<>();
+       String query = "SELECT * FROM " + TABLE_CATEGORYPRODUCT;
+
+       SQLiteDatabase db = this.getReadableDatabase();
+       Cursor cursor = db.rawQuery(query, null);
+       if (cursor.moveToFirst()) {
+           do {
+               CategoryProduct categoryProduct = new CategoryProduct();
+               categoryProduct.setiID(Integer.parseInt(cursor.getString(0)));
+               categoryProduct.setsName(cursor.getString(1));
+               categoryProduct.setsSource(cursor.getBlob(2));
+               // Adding contact to list
+               categoryProductList.add(categoryProduct);
+           } while (cursor.moveToNext());
+       }
+       cursor.close();
+       return  categoryProductList;
+   }
+
     public List<Role> getListRoles(){
         List<Role> roleList = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_ROLE;
