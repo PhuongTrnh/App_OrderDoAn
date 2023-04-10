@@ -48,10 +48,10 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString("idRole", idRole);
 
         // load lúc đầu
-//        Fragment fragment;
-//        fragment = new CategoryProductFragment();
-//        fragment.setArguments(bundle);
-//        loadFragment(fragment);
+        Fragment fragment;
+        fragment = new CategoryProductFragment();
+        fragment.setArguments(bundle);
+        loadFragment(fragment);
     }
 
     @Override
@@ -83,9 +83,9 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigation_product:
-//                    fragment = new CategoryProductFragment();
-//                    fragment.setArguments(bundle);
-//                    loadFragment(fragment);
+                    fragment = new CategoryProductFragment();
+                    fragment.setArguments(bundle);
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_cart:
 //                    fragment = new CartFragment();
