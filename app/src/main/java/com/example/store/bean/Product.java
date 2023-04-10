@@ -103,6 +103,7 @@ public class Product implements Serializable {
         this.iQuantity = iQuantity;
         this.iIDCategory=IDCategory;
         this.iState=1;
+        this.sSource = null;
     }
 
     public Product(String sName, long lPrice, String sDescription, int iQuantity, int IDCategory,byte[] sSource ) {
