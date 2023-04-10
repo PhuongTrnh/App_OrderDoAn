@@ -174,7 +174,6 @@ public class AddEditProductActivity extends AppCompatActivity {
                 this.product = new Product(name,Long.parseLong(price),textDescription,Integer.parseInt(textQuantity),idCategory,this.source);
             } else {
                 this.product = new Product(name,Long.parseLong(price),textDescription,Integer.parseInt(textQuantity),idCategory);
-
             }
             db.insertProduct(product);
         } else  {
