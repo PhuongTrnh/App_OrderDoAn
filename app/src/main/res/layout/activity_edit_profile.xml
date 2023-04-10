@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.user.EditProfileActivity"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:logo="@drawable/ic_baseline_arrow_back_24"
+        app:title="Edit Profile"
+        app:titleTextColor="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp">
+
+        <ImageView
+            android:id="@+id/iv_avatar_profile"
+            android:layout_width="165dp"
+            android:layout_height="188dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/no_image" />
+
+        <ImageButton
+            android:id="@+id/ibtn_camera"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/my_button"
+            app:srcCompat="@android:drawable/ic_menu_camera" />
+
+        <ImageButton
+            android:id="@+id/ibtn_library"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/my_button"
+            app:srcCompat="@drawable/ic_baseline_photo_library_24" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/my_edittext"
+        android:ems="16"
+        android:hint="Your full name"
+        android:inputType="text"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp" />
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:ems="16"
+        android:inputType="textEmailAddress"
+        android:hint="Your email address"
+        android:background="@drawable/my_edittext"
+        android:layout_margin="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"
+        android:enabled="false"/>
+
+    <EditText
+        android:id="@+id/et_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:ems="16"
+        android:inputType="textPersonName"
+        android:hint="Your phone"
+        android:background="@drawable/my_edittext"
+        android:layout_margin="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"/>
+
+    <EditText
+        android:id="@+id/et_address"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:ems="16"
+        android:inputType="textPersonName"
+        android:hint="Your default address"
+        android:background="@drawable/my_edittext"
+        android:layout_margin="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"/>
+
+    <Button
+        android:id="@+id/btn_confirmedit"
+        android:layout_width="150dp"
+        android:layout_height="62dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/my_button"
+        android:text="confirm"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        app:backgroundTint="@null" />
+
+</LinearLayout>

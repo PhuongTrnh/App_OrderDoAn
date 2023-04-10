@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.login.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp">
+
+        <ImageView
+            android:id="@+id/iv_avatar_profile"
+            android:layout_width="165dp"
+            android:layout_height="188dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/no_image" />
+
+        <ImageButton
+            android:id="@+id/ibtn_camera"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/my_button"
+            app:srcCompat="@android:drawable/ic_menu_camera" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:ems="16"
+        android:inputType="text"
+        android:hint="Your full name"
+        android:background="@drawable/my_edittext"
+        android:layout_margin="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"/>
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:ems="16"
+        android:inputType="textEmailAddress"
+        android:hint="Your email adress"
+        android:background="@drawable/my_edittext"
+        android:layout_margin="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"/>
+
+    <EditText
+        android:id="@+id/et_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:ems="16"
+        android:inputType="textPersonName"
+        android:hint="Your phone"
+        android:background="@drawable/my_edittext"
+        android:layout_margin="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"/>
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:ems="16"
+        android:inputType="textPassword"
+        android:hint="Password"
+        android:background="@drawable/my_edittext"
+        android:layout_margin="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"/>
+
+    <EditText
+        android:id="@+id/et_confirmpassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:ems="16"
+        android:inputType="textPassword"
+        android:hint="Confirm Password"
+        android:background="@drawable/my_edittext"
+        android:layout_margin="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"/>
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="150dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/my_button"
+        android:text="register"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        app:backgroundTint="@null" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tv_turnback"
+            android:layout_width="268dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="Already have a account?"
+            android:textColor="#000000"
+            android:textSize="18dp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LOGIN"
+            android:paddingLeft="10dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="#A35161"/>
+    </LinearLayout>
+
+</LinearLayout>
