@@ -34,6 +34,7 @@ import com.example.store.utils.RecyclerItemTouchHelper;
 import com.example.store.activity.order.ConfirmOrderActivity;
 import com.example.store.adapter.CartAdapter;
 import com.example.store.bean.Cart;
+
 import pl.droidsonroids.gif.GifImageView;
 
 public class CartFragment extends Fragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener, ItemCheckedListener {
@@ -53,6 +54,7 @@ public class CartFragment extends Fragment implements RecyclerItemTouchHelper.Re
     private List<Cart> lCartCheked;
     public static final int REQUEST_CODE_CONFIRM = 1;
     private GifImageView giv_empty;
+
     public CartFragment() {
         // Required empty public constructor
     }
@@ -90,7 +92,7 @@ public class CartFragment extends Fragment implements RecyclerItemTouchHelper.Re
         rv_cart = view.findViewById(R.id.item_cart);
         rv_cart.addItemDecoration(dividerHorizontal);
         giv_empty = view.findViewById(R.id.empty_cart);
-        if(lCarts.size() > 0){
+        if (lCarts.size() > 0) {
             rv_cart.setVisibility(View.VISIBLE);
             giv_empty.setVisibility(View.GONE);
             btn_placeorder.setVisibility(View.VISIBLE);
@@ -98,13 +100,12 @@ public class CartFragment extends Fragment implements RecyclerItemTouchHelper.Re
             tv_totalprice.setVisibility(View.VISIBLE);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
             rv_cart.setLayoutManager(layoutManager);
-            adapter = new CartAdapter(lCarts, getContext(),this);
+            adapter = new CartAdapter(lCarts, getContext(), this);
             adapter.notifyDataSetChanged();
             rv_cart.setAdapter(adapter);
             ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
             new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(rv_cart);
-        }
-        else {
+        } else {
             rv_cart.setVisibility(View.GONE);
             giv_empty.setVisibility(View.VISIBLE);
             btn_placeorder.setVisibility(View.GONE);
@@ -116,15 +117,14 @@ public class CartFragment extends Fragment implements RecyclerItemTouchHelper.Re
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 double total_price = 0;
-                Locale locale = new Locale("vn","VN");
+                Locale locale = new Locale("vn", "VN");
                 NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-                if(cb_all.isChecked()){
+                if (cb_all.isChecked()) {
                     db.checkedAllItemCart(Integer.parseInt(mParamIDUser));
                     total_price = db.totalPriceCheckedInCart(Double.parseDouble(mParamIDUser));
                     adapter.selectAll();
-                }
-                else {
-                    if(cb_all_check){
+                } else {
+                    if (cb_all_check) {
                         db.unCheckedAllItemCart(Integer.parseInt(mParamIDUser));
                         total_price = db.totalPriceCheckedInCart(Integer.parseInt(mParamIDUser));
                         adapter.unSelectAll();
@@ -139,13 +139,12 @@ public class CartFragment extends Fragment implements RecyclerItemTouchHelper.Re
             @Override
             public void onClick(View v) {
                 lCartCheked = db.getListCartOfUserChecked(Integer.parseInt(mParamIDUser));
-                if(lCartCheked.size() > 0){
+                if (lCartCheked.size() > 0) {
                     Intent intent = new Intent(getContext(), ConfirmOrderActivity.class);
-                    intent.putExtra(ARG_IDUSER,mParamIDUser);
+                    intent.putExtra(ARG_IDUSER, mParamIDUser);
                     startActivityForResult(intent, REQUEST_CODE_CONFIRM);
-
-                }
-                else Toast.makeText(getContext(),"No product is selected.",Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(getContext(), "No product is selected.", Toast.LENGTH_SHORT).show();
             }
         });
         return view;
@@ -158,9 +157,9 @@ public class CartFragment extends Fragment implements RecyclerItemTouchHelper.Re
         if (requestCode == REQUEST_CODE_CONFIRM && resultCode == Activity.RESULT_OK) {
             lCarts = db.getListCartOfUser(Integer.parseInt(mParamIDUser));
             int size = lCarts.size();
-            if(lCarts != null){
-                for (int i=0; i<size; i++){
-                    if (lCarts.get(i).getiChecked() == 1){
+            if (lCarts != null) {
+                for (int i = 0; i < size; i++) {
+                    if (lCarts.get(i).getiChecked() == 1) {
                         adapter.removeItem(i);
                         db.deleteItemCart(lCarts.get(i));
                         lCarts.remove(i);
@@ -169,8 +168,7 @@ public class CartFragment extends Fragment implements RecyclerItemTouchHelper.Re
                     }
                     tv_totalprice.setText("");
                 }
-                if(size == 0)
-                {
+                if (size == 0) {
                     rv_cart.setVisibility(View.GONE);
                     giv_empty.setVisibility(View.VISIBLE);
                     btn_placeorder.setVisibility(View.GONE);
@@ -178,7 +176,7 @@ public class CartFragment extends Fragment implements RecyclerItemTouchHelper.Re
                     tv_totalprice.setVisibility(View.GONE);
                 }
             }
-            Toast.makeText(getContext(),"Order successful. Thank you! Select 'Profile' to view your order history",Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Order successful. Thank you! Select 'Profile' to view your order history", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -217,14 +215,12 @@ public class CartFragment extends Fragment implements RecyclerItemTouchHelper.Re
         int total_checked = db.itemCheckedSize(Integer.parseInt(mParamIDUser));
         double total_price = 0;
         total_price = db.totalPriceCheckedInCart(Integer.parseInt(mParamIDUser));
-        Locale locale = new Locale("vn","VN");
+        Locale locale = new Locale("vn", "VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-        if(total_checked == lCarts.size())
-        {
+        if (total_checked == lCarts.size()) {
             //cb_all_check = false;
             cb_all.setChecked(true);
-        }
-        else {
+        } else {
             cb_all_check = false;
             cb_all.setChecked(false);
         }
