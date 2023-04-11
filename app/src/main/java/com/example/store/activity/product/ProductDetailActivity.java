@@ -123,8 +123,30 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
 
-
-
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                lCarts = db.getListCartOfUser(Integer.parseInt(iduser));
+//                Cart cart;
+//                int idcart = db.hasProductInCart(id,Integer.parseInt(iduser));
+//                if(idcart != 0){
+//                    Cart cart_quantity = db.getCart(idcart);
+//                    if(cart_quantity.getiQuantity() >= product.getiQuantity()){
+//                        Toast.makeText(ProductDetailActivity.this, "Product exceeds the allowed quantity", Toast.LENGTH_SHORT).show();
+//                    }
+//                    else {
+//                        cart = db.getCart(idcart);
+//                        cart.setiQuantity(quantity_temp + cart.getiQuantity());
+//                        db.updateQuantityCart(cart);
+//                    }
+//                }
+//                else {
+//                    cart = new Cart(id,Integer.parseInt(iduser),quantity_temp);
+//                    db.insertItemCart(cart);
+//                }
+//                Toast.makeText(ProductDetailActivity.this, product.getsName() + " has been added to your cart.", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void Mapping(){
@@ -135,7 +157,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         et_quantity = (EditText)findViewById(R.id.et_quantity);
         cv_decrease = (CardView)findViewById(R.id.cv_decrease);
         cv_increase = (CardView)findViewById(R.id.cv_increase);
-
+        btn_add = (Button)findViewById(R.id.btn_add_to_cart);
         et_quantity.setTransformationMethod(null);
     }
 }

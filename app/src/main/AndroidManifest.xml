@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         <activity
-            android:name=".activity.category.CategoryProductActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity.product.ProductDetailActivity"
             android:exported="false" />
         <activity

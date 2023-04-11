@@ -50,10 +50,10 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString("idRole", idRole);
 
         // load lúc đầu
-//        Fragment fragment;
-//        fragment = new CategoryProductFragment();
-//        fragment.setArguments(bundle);
-//        loadFragment(fragment);
+        Fragment fragment;
+        fragment = new CategoryProductFragment();
+        fragment.setArguments(bundle);
+        loadFragment(fragment);
     }
 
     @Override
