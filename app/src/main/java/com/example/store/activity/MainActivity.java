@@ -9,6 +9,8 @@ import androidx.appcompat.app.AlertDialog;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.store.fracment.CartFragment;
 import com.example.store.fracment.CategoryProductFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -48,10 +50,10 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString("idRole", idRole);
 
         // load lúc đầu
-//        Fragment fragment;
-//        fragment = new CategoryProductFragment();
-//        fragment.setArguments(bundle);
-//        loadFragment(fragment);
+        Fragment fragment;
+        fragment = new CategoryProductFragment();
+        fragment.setArguments(bundle);
+        loadFragment(fragment);
     }
 
     @Override
@@ -83,14 +85,14 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigation_product:
-                   fragment = new CategoryProductFragment();
-                   fragment.setArguments(bundle);
-                   loadFragment(fragment);
+                    fragment = new CategoryProductFragment();
+                    fragment.setArguments(bundle);
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_cart:
-//                    fragment = new CartFragment();
-//                    fragment.setArguments(bundle);
-//                    loadFragment(fragment);
+                    fragment = new CartFragment();
+                    fragment.setArguments(bundle);
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_profile:
                     fragment = new ProfileFragment();
