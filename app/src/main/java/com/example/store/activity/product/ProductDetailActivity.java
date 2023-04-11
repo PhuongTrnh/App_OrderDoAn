@@ -17,11 +17,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.example.store.R;
+import com.example.store.bean.Cart;
 import com.example.store.bean.Product;
 import com.example.store.constants.Resource;
 import com.example.store.db.DatabaseHandler;
 
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
@@ -36,7 +38,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     Button btn_add;
     DatabaseHandler db;
     int quantity_temp;
-//    private List<Cart> lCarts;
+    private List<Cart> lCarts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,25 +128,25 @@ public class ProductDetailActivity extends AppCompatActivity {
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                lCarts = db.getListCartOfUser(Integer.parseInt(iduser));
-//                Cart cart;
-//                int idcart = db.hasProductInCart(id,Integer.parseInt(iduser));
-//                if(idcart != 0){
-//                    Cart cart_quantity = db.getCart(idcart);
-//                    if(cart_quantity.getiQuantity() >= product.getiQuantity()){
-//                        Toast.makeText(ProductDetailActivity.this, "Product exceeds the allowed quantity", Toast.LENGTH_SHORT).show();
-//                    }
-//                    else {
-//                        cart = db.getCart(idcart);
-//                        cart.setiQuantity(quantity_temp + cart.getiQuantity());
-//                        db.updateQuantityCart(cart);
-//                    }
-//                }
-//                else {
-//                    cart = new Cart(id,Integer.parseInt(iduser),quantity_temp);
-//                    db.insertItemCart(cart);
-//                }
-//                Toast.makeText(ProductDetailActivity.this, product.getsName() + " has been added to your cart.", Toast.LENGTH_LONG).show();
+                lCarts = db.getListCartOfUser(Integer.parseInt(iduser));
+                Cart cart;
+                int idcart = db.hasProductInCart(id,Integer.parseInt(iduser));
+                if(idcart != 0){
+                    Cart cart_quantity = db.getCart(idcart);
+                    if(cart_quantity.getiQuantity() >= product.getiQuantity()){
+                        Toast.makeText(ProductDetailActivity.this, "Product exceeds the allowed quantity", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        cart = db.getCart(idcart);
+                        cart.setiQuantity(quantity_temp + cart.getiQuantity());
+                        db.updateQuantityCart(cart);
+                    }
+                }
+                else {
+                    cart = new Cart(id,Integer.parseInt(iduser),quantity_temp);
+                    db.insertItemCart(cart);
+                }
+                Toast.makeText(ProductDetailActivity.this, product.getsName() + " has been added to your cart.", Toast.LENGTH_LONG).show();
             }
         });
     }

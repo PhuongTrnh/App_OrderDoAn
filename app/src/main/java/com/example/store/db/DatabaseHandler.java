@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import com.example.store.bean.Bill;
+import com.example.store.bean.BillDetail;
+import com.example.store.bean.Cart;
 import com.example.store.bean.CategoryProduct;
 import com.example.store.bean.Product;
 import com.example.store.bean.Role;
@@ -105,7 +108,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + "address NVARCHAR(255) NOT NULL,"
                 + "date TEXT NOT NULL,"
                 + "state INT DEFAULT 0," // 0. Dang giao 1. Da nhan 2. Da huy
-                + "totalprice DECIMAL NOT NULL,"
+                + "totalprice DOUBLE NOT NULL,"
                 + "CONSTRAINT fk_bill_iduser FOREIGN KEY(iduser) REFERENCES user(id)"
                 + ")";
 
@@ -270,21 +273,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //
-//    public Role getRoleById(int id){
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        String query = "SELECT * FROM " + TABLE_ROLE + " WHERE id = " + String.valueOf(id);
-//
-//        Cursor cursor = db.rawQuery(query, null);
-//        if(cursor != null){
-//            cursor.moveToFirst();
-//        }
-//        Role role = new Role();
-//        role.setiID(Integer.parseInt(cursor.getString(0)));
-//        role.setsName(cursor.getString(1));
-//        cursor.close();
-//        return role;
-//    }
-////endregion
+    public Role getRoleById(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_ROLE + " WHERE id = " + String.valueOf(id);
+
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor != null){
+            cursor.moveToFirst();
+        }
+        Role role = new Role();
+        role.setiID(Integer.parseInt(cursor.getString(0)));
+        role.setsName(cursor.getString(1));
+        cursor.close();
+        return role;
+    }
+//endregion
 //
 //    //region PRODUCT
     public void insertProduct(Product product) {
@@ -608,299 +611,299 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //    //endregion
 //
 //    //region Cart
-//    public void insertItemCart(Cart cart){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put("idproduct", cart.getiIDProduct());
-//        values.put("iduser", cart.getiIDUser());
-//        values.put("quantity", cart.getiQuantity());
-//
-//        db.insert(TABLE_CART, null, values);
-//        db.close();
-//    }
-//
-//    public void undoItemCart(Cart cart){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//
-//        values.put("id", cart.getiID());
-//        values.put("idproduct", cart.getiIDProduct());
-//        values.put("iduser", cart.getiIDUser());
-//        values.put("quantity", cart.getiQuantity());
-//
-//        db.insert(TABLE_CART, null, values);
-//        db.close();
-//    }
-//
-//    public int updateQuantityCart(Cart cart){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put("idproduct", cart.getiIDProduct());
-//        values.put("iduser", cart.getiIDUser());
-//        values.put("quantity", cart.getiQuantity());
-//
-//        return db.update(TABLE_CART, values, "id = ?", new String[]{String.valueOf(cart.getiID())});
-//    }
-//
-//    public void deleteItemCart(Cart cart){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        db.delete(TABLE_CART, "id = ? ", new String[]{String.valueOf(cart.getiID())});
-//        db.close();
-//    }
-//
-//    public List<Cart> getListCartOfUser(int iduser){
-//        List<Cart> cartList = new ArrayList<Cart>();
-//        String query = "SELECT * FROM " + TABLE_CART + " WHERE iduser = " + String.valueOf(iduser);
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, null);
-//        if (cursor.moveToFirst()) {
-//            do {
-//                Cart cart = new Cart();
-//                cart.setiID(cursor.getInt(0));
-//                cart.setiIDProduct(cursor.getInt(1));
-//                cart.setiIDUser(iduser);
-//                cart.setiQuantity(cursor.getInt(3));
-//                cart.setiChecked(cursor.getInt(4));
-//                // Adding contact to list
-//                cartList.add(cart);
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return cartList;
-//    }
-//
-//    public List<Cart> getListCartOfUserChecked(int iduser){
-//        List<Cart> cartList = new ArrayList<Cart>();
-//        String query = "SELECT * FROM " + TABLE_CART + " WHERE iduser = " + String.valueOf(iduser) + " AND checked = 1";
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, null);
-//        if (cursor.moveToFirst()) {
-//            do {
-//                Cart cart = new Cart();
-//                cart.setiID(cursor.getInt(0));
-//                cart.setiIDProduct(cursor.getInt(1));
-//                cart.setiIDUser(iduser);
-//                cart.setiQuantity(cursor.getInt(3));
-//                cart.setiChecked(cursor.getInt(4));
-//                // Adding contact to list
-//                cartList.add(cart);
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return cartList;
-//    }
-//
-//    public int hasProductInCart(int idproduct, int iduser){
-//        List<Cart> cartList = new ArrayList<Cart>();
-//        String query = "SELECT id FROM " + TABLE_CART + " WHERE iduser = ? AND idproduct = ? " ;
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, new String[]{iduser + "", idproduct + ""});
-//        if(cursor.getCount() > 0)
-//        {
-//            cursor.moveToFirst();
-//            return cursor.getInt(0);
-//        }
-//        return 0;
-//    }
-//
-//    public Cart getCart(int id){
-//        String query = "SELECT * FROM " + TABLE_CART + " WHERE id = ? ";
-//        Cart cart = new Cart();
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, new String[]{id + ""});
-//        if (cursor.moveToFirst()) {
-//            cart.setiID(cursor.getInt(0));
-//            cart.setiIDProduct(cursor.getInt(1));
-//            cart.setiIDUser(cursor.getInt(2));
-//            cart.setiQuantity(cursor.getInt(3));
-//            cart.setiChecked(cursor.getInt(4));
-//        }
-//        cursor.close();
-//        return cart;
-//    }
-//
-//    public int checkedItemCart(int id){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put("checked", 1);
-//        return db.update(TABLE_CART, values, "id = ?", new String[]{String.valueOf(id)});
-//    }
-//
-//    public int checkedAllItemCart(int iduser){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put("checked", 1);
-//        return db.update(TABLE_CART, values, "iduser = ?", new String[]{String.valueOf(iduser)});
-//    }
-//
-//    public int unCheckedItemCart(int id){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put("checked", 0);
-//        return db.update(TABLE_CART, values, "id = ?", new String[]{String.valueOf(id)});
-//    }
-//
-//    public int unCheckedAllItemCart(int iduser){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put("checked", 0);
-//        return db.update(TABLE_CART, values, "iduser = ?", new String[]{String.valueOf(iduser)});
-//    }
-//
-//    public int itemCheckedSize(int iduser){
-//        String query = "SELECT count(id) FROM " + TABLE_CART + " WHERE iduser = ? AND checked = 1 " ;
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, new String[]{iduser + ""});
-//        if(cursor.getCount() > 0)
-//        {
-//            cursor.moveToFirst();
-//            return cursor.getInt(0);
-//        }
-//        return 0;
-//    }
-//
-//    public long totalPriceCheckedInCart(int iduser){
-//        String query = "SELECT sum(product.price * cart.quantity) FROM " + TABLE_CART + " INNER JOIN " + TABLE_PRODUCT + " WHERE iduser = ? AND cart.checked = 1 AND cart.idproduct = product.id" ;
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, new String[]{iduser + ""});
-//        if(cursor.getCount() > 0)
-//        {
-//            cursor.moveToFirst();
-//            return cursor.getInt(0);
-//        }
-//        return 0;
-//    }
-//
-//    public int totalQuantityCheckedInCart(int iduser){
-//        String query = "SELECT sum(cart.quantity) FROM " + TABLE_CART + " WHERE iduser = ? AND cart.checked = 1" ;
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, new String[]{iduser + ""});
-//        if(cursor.getCount() > 0)
-//        {
-//            cursor.moveToFirst();
-//            return cursor.getInt(0);
-//        }
-//        return 0;
-//    }
-//    //endregion
-//
-//    //region BILL
-//    public int insertBill(Bill bill){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put("iduser", bill.getiIDUser());
-//        values.put("quantity", bill.getiQuantity());
-//        values.put("personname", bill.getsPersonName());
-//        values.put("phone", bill.getsPhone());
-//        values.put("address", bill.getsAddress());
-//        values.put("date", bill.getsDate());
-//        values.put("state", bill.getiState());
-//        values.put("totalprice", bill.getlTotalPrice());
-//        db.insert(TABLE_BILL, null, values);
-//        db.close();
-//        db = this.getReadableDatabase();
-//        String query = "SELECT MAX(id)  FROM " + TABLE_BILL ;
-//        Cursor cursor = db.rawQuery(query,null);
-//        int idbill = 0;
-//        if(cursor.moveToFirst()){
-//             idbill = cursor.getInt(0);
-//        }
-//        return idbill;
-//    }
-//
-//    public int updateStateBill(Bill bill){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put("state", bill.getiState());
-//        return db.update(TABLE_BILL, values, "id = ?", new String[]{String.valueOf(bill.getiID())});
-//    }
-//
-//    public List<Bill> getListBillOfUser(int iduser){
-//        List<Bill> billList = new ArrayList<Bill>();
-//        String query = "SELECT id, date, state FROM " + TABLE_BILL + " WHERE iduser = " + String.valueOf(iduser) + " ORDER BY id DESC";
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, null);
-//        if (cursor.moveToFirst()) {
-//            do {
-//                Bill bill = new Bill();
-//                bill.setiID(cursor.getInt(0));
-//                bill.setsDate(cursor.getString(1));
-//                bill.setiState(cursor.getInt(2));
-//                // Adding contact to list
-//                billList.add(bill);
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return billList;
-//    }
-//
-//    public Bill getBill(int id){
-//        String query = "SELECT personname, phone, address, quantity, state, totalprice FROM " + TABLE_BILL + " WHERE id = ? ";
-//        Bill bill = new Bill();
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, new String[]{id + ""});
-//        if (cursor.moveToFirst()) {
-//            bill.setsPersonName(cursor.getString(0));
-//            bill.setsPhone(cursor.getString(1));
-//            bill.setsAddress(cursor.getString(2));
-//            bill.setiQuantity(cursor.getInt(3));
-//            bill.setiState(cursor.getInt(4));
-//            bill.setlTotalPrice(cursor.getLong(5));
-//        }
-//        cursor.close();
-//        return bill;
-//    }
-//    //endregion
-//
-//    //region BILL DETAIL
-//    public void insertBillDetail(BillDetail bill){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put("idbill", bill.getiIDBill());
-//        values.put("idproduct", bill.getiIDProduct());
-//        values.put("quantity", bill.getiQuantity());
-//        values.put("unitprice", bill.getlUnitPrice());
-//        db.insert(TABLE_BILLDETAIL, null, values);
-//        db.close();
-//    }
-//
-//    public List<BillDetail> getListBillDetail(int idbill){
-//        List<BillDetail> billList = new ArrayList<BillDetail>();
-//        String query = "SELECT idproduct, quantity, unitprice FROM " + TABLE_BILLDETAIL + " WHERE idbill = " + String.valueOf(idbill);
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(query, null);
-//        if (cursor.moveToFirst()) {
-//            do {
-//                BillDetail bill = new BillDetail();
-//                bill.setiIDProduct(cursor.getInt(0));
-//                bill.setiQuantity(cursor.getInt(1));
-//                bill.setlUnitPrice(cursor.getLong(2));
-//                // Adding contact to list
-//                billList.add(bill);
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return billList;
-//    }
+    public void insertItemCart(Cart cart){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("idproduct", cart.getiIDProduct());
+        values.put("iduser", cart.getiIDUser());
+        values.put("quantity", cart.getiQuantity());
+
+        db.insert(TABLE_CART, null, values);
+        db.close();
+    }
+
+    public void undoItemCart(Cart cart){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put("id", cart.getiID());
+        values.put("idproduct", cart.getiIDProduct());
+        values.put("iduser", cart.getiIDUser());
+        values.put("quantity", cart.getiQuantity());
+
+        db.insert(TABLE_CART, null, values);
+        db.close();
+    }
+
+    public int updateQuantityCart(Cart cart){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("idproduct", cart.getiIDProduct());
+        values.put("iduser", cart.getiIDUser());
+        values.put("quantity", cart.getiQuantity());
+
+        return db.update(TABLE_CART, values, "id = ?", new String[]{String.valueOf(cart.getiID())});
+    }
+
+    public void deleteItemCart(Cart cart){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(TABLE_CART, "id = ? ", new String[]{String.valueOf(cart.getiID())});
+        db.close();
+    }
+
+    public List<Cart> getListCartOfUser(int iduser){
+        List<Cart> cartList = new ArrayList<Cart>();
+        String query = "SELECT * FROM " + TABLE_CART + " WHERE iduser = " + String.valueOf(iduser);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Cart cart = new Cart();
+                cart.setiID(cursor.getInt(0));
+                cart.setiIDProduct(cursor.getInt(1));
+                cart.setiIDUser(iduser);
+                cart.setiQuantity(cursor.getInt(3));
+                cart.setiChecked(cursor.getInt(4));
+                // Adding contact to list
+                cartList.add(cart);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return cartList;
+    }
+
+    public List<Cart> getListCartOfUserChecked(int iduser){
+        List<Cart> cartList = new ArrayList<Cart>();
+        String query = "SELECT * FROM " + TABLE_CART + " WHERE iduser = " + String.valueOf(iduser) + " AND checked = 1";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Cart cart = new Cart();
+                cart.setiID(cursor.getInt(0));
+                cart.setiIDProduct(cursor.getInt(1));
+                cart.setiIDUser(iduser);
+                cart.setiQuantity(cursor.getInt(3));
+                cart.setiChecked(cursor.getInt(4));
+                // Adding contact to list
+                cartList.add(cart);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return cartList;
+    }
+
+    public int hasProductInCart(int idproduct, int iduser){
+        List<Cart> cartList = new ArrayList<Cart>();
+        String query = "SELECT id FROM " + TABLE_CART + " WHERE iduser = ? AND idproduct = ? " ;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, new String[]{iduser + "", idproduct + ""});
+        if(cursor.getCount() > 0)
+        {
+            cursor.moveToFirst();
+            return cursor.getInt(0);
+        }
+        return 0;
+    }
+
+    public Cart getCart(int id){
+        String query = "SELECT * FROM " + TABLE_CART + " WHERE id = ? ";
+        Cart cart = new Cart();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, new String[]{id + ""});
+        if (cursor.moveToFirst()) {
+            cart.setiID(cursor.getInt(0));
+            cart.setiIDProduct(cursor.getInt(1));
+            cart.setiIDUser(cursor.getInt(2));
+            cart.setiQuantity(cursor.getInt(3));
+            cart.setiChecked(cursor.getInt(4));
+        }
+        cursor.close();
+        return cart;
+    }
+
+    public int checkedItemCart(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("checked", 1);
+        return db.update(TABLE_CART, values, "id = ?", new String[]{String.valueOf(id)});
+    }
+
+    public int checkedAllItemCart(int iduser){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("checked", 1);
+        return db.update(TABLE_CART, values, "iduser = ?", new String[]{String.valueOf(iduser)});
+    }
+
+    public int unCheckedItemCart(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("checked", 0);
+        return db.update(TABLE_CART, values, "id = ?", new String[]{String.valueOf(id)});
+    }
+
+    public int unCheckedAllItemCart(int iduser){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("checked", 0);
+        return db.update(TABLE_CART, values, "iduser = ?", new String[]{String.valueOf(iduser)});
+    }
+
+    public int itemCheckedSize(int iduser){
+        String query = "SELECT count(id) FROM " + TABLE_CART + " WHERE iduser = ? AND checked = 1 " ;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, new String[]{iduser + ""});
+        if(cursor.getCount() > 0)
+        {
+            cursor.moveToFirst();
+            return cursor.getInt(0);
+        }
+        return 0;
+    }
+
+    public double totalPriceCheckedInCart(double iduser){
+        String query = "SELECT sum(product.price * cart.quantity) FROM " + TABLE_CART + " INNER JOIN " + TABLE_PRODUCT + " WHERE iduser = ? AND cart.checked = 1 AND cart.idproduct = product.id" ;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, new String[]{iduser + ""});
+        if(cursor.getCount() > 0)
+        {
+            cursor.moveToFirst();
+            return cursor.getInt(0);
+        }
+        return 0;
+    }
+
+    public int totalQuantityCheckedInCart(int iduser){
+        String query = "SELECT sum(cart.quantity) FROM " + TABLE_CART + " WHERE iduser = ? AND cart.checked = 1" ;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, new String[]{iduser + ""});
+        if(cursor.getCount() > 0)
+        {
+            cursor.moveToFirst();
+            return cursor.getInt(0);
+        }
+        return 0;
+    }
+    //endregion
+
+    //region BILL
+    public int insertBill(Bill bill){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("iduser", bill.getiIDUser());
+        values.put("quantity", bill.getiQuantity());
+        values.put("personname", bill.getsPersonName());
+        values.put("phone", bill.getsPhone());
+        values.put("address", bill.getsAddress());
+        values.put("date", bill.getsDate());
+        values.put("state", bill.getiState());
+        values.put("totalprice", bill.getlTotalPrice());
+        db.insert(TABLE_BILL, null, values);
+        db.close();
+        db = this.getReadableDatabase();
+        String query = "SELECT MAX(id)  FROM " + TABLE_BILL ;
+        Cursor cursor = db.rawQuery(query,null);
+        int idbill = 0;
+        if(cursor.moveToFirst()){
+             idbill = cursor.getInt(0);
+        }
+        return idbill;
+    }
+
+    public int updateStateBill(Bill bill){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("state", bill.getiState());
+        return db.update(TABLE_BILL, values, "id = ?", new String[]{String.valueOf(bill.getiID())});
+    }
+
+    public List<Bill> getListBillOfUser(int iduser){
+        List<Bill> billList = new ArrayList<Bill>();
+        String query = "SELECT id, date, state FROM " + TABLE_BILL + " WHERE iduser = " + String.valueOf(iduser) + " ORDER BY id DESC";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Bill bill = new Bill();
+                bill.setiID(cursor.getInt(0));
+                bill.setsDate(cursor.getString(1));
+                bill.setiState(cursor.getInt(2));
+                // Adding contact to list
+                billList.add(bill);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return billList;
+    }
+
+    public Bill getBill(int id){
+        String query = "SELECT personname, phone, address, quantity, state, totalprice FROM " + TABLE_BILL + " WHERE id = ? ";
+        Bill bill = new Bill();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, new String[]{id + ""});
+        if (cursor.moveToFirst()) {
+            bill.setsPersonName(cursor.getString(0));
+            bill.setsPhone(cursor.getString(1));
+            bill.setsAddress(cursor.getString(2));
+            bill.setiQuantity(cursor.getInt(3));
+            bill.setiState(cursor.getInt(4));
+            bill.setlTotalPrice(cursor.getLong(5));
+        }
+        cursor.close();
+        return bill;
+    }
+    //endregion
+
+    //region BILL DETAIL
+    public void insertBillDetail(BillDetail bill){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("idbill", bill.getiIDBill());
+        values.put("idproduct", bill.getiIDProduct());
+        values.put("quantity", bill.getiQuantity());
+        values.put("unitprice", bill.getlUnitPrice());
+        db.insert(TABLE_BILLDETAIL, null, values);
+        db.close();
+    }
+
+    public List<BillDetail> getListBillDetail(int idbill){
+        List<BillDetail> billList = new ArrayList<BillDetail>();
+        String query = "SELECT idproduct, quantity, unitprice FROM " + TABLE_BILLDETAIL + " WHERE idbill = " + String.valueOf(idbill);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                BillDetail bill = new BillDetail();
+                bill.setiIDProduct(cursor.getInt(0));
+                bill.setiQuantity(cursor.getInt(1));
+                bill.setlUnitPrice(cursor.getLong(2));
+                // Adding contact to list
+                billList.add(bill);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return billList;
+    }
     //endregion
 }
 

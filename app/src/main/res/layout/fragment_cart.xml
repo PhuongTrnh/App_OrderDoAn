@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fracment.CartFragment"
+    android:id="@+id/frame_container_cart">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:title="@string/title_cart"
+            app:titleTextColor="@color/white" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/item_cart"
+            android:layout_width="match_parent"
+            android:layout_height="580dp"></androidx.recyclerview.widget.RecyclerView>
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/empty_cart"
+            android:layout_width="match_parent"
+            android:layout_height="575dp"
+            android:src="@drawable/notify_cart_eng"
+            android:visibility="gone"
+            android:gravity="center"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_order"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <CheckBox
+                android:id="@+id/cb_all_item"
+                android:layout_width="108dp"
+                android:layout_height="wrap_content"
+                android:text="All Items" />
+
+            <TextView
+                android:id="@+id/tv_totalprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:paddingRight="10dp"
+                android:textColor="@color/purple"
+                android:textSize="20dp"
+                tools:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_place_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/my_button"
+                android:padding="6dp"
+                android:text="@string/place_an_order"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

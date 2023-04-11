@@ -9,6 +9,8 @@ import androidx.appcompat.app.AlertDialog;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.store.fracment.CartFragment;
 import com.example.store.fracment.CategoryProductFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -88,9 +90,9 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_cart:
-//                    fragment = new CartFragment();
-//                    fragment.setArguments(bundle);
-//                    loadFragment(fragment);
+                    fragment = new CartFragment();
+                    fragment.setArguments(bundle);
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_profile:
                     fragment = new ProfileFragment();

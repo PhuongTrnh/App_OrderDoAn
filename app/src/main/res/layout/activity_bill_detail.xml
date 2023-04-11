@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.bill.BillDetailActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:logo="@drawable/ic_baseline_arrow_back_24"
+        app:title=""
+        app:titleTextColor="@color/white" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="168dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/border">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="226dp"
+            android:gravity="left"
+            android:text="@string/delivery_info"
+            android:textColor="@color/text"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/et_personname"
+            android:layout_width="54dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
+            android:text="Name:"
+            android:textColor="@color/text"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/et_personname2"
+            app:layout_constraintEnd_toStartOf="@+id/tv_name_bill"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <TextView
+            android:id="@+id/et_personname2"
+            android:layout_width="54dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginBottom="10dp"
+            android:text="Phone:"
+            android:textColor="@color/text"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/et_personname3"
+            app:layout_constraintEnd_toStartOf="@+id/tv_phone_bill"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_personname" />
+
+        <TextView
+            android:id="@+id/et_personname3"
+            android:layout_width="66dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginBottom="44dp"
+            android:text="Address:"
+            android:textColor="@color/text"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_address_bill"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_personname2" />
+
+        <TextView
+            android:id="@+id/tv_name_bill"
+            android:layout_width="247dp"
+            android:layout_height="23dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="31dp"
+            android:gravity="left"
+            android:text="Name"
+            android:textColor="@color/text"
+            app:layout_constraintBottom_toTopOf="@+id/tv_phone_bill"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/et_personname"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <TextView
+            android:id="@+id/tv_phone_bill"
+            android:layout_width="247dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="31dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="left"
+            android:text="Name"
+            android:textColor="@color/text"
+            app:layout_constraintBottom_toTopOf="@+id/et_personname3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/et_personname2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_bill" />
+
+        <TextView
+            android:id="@+id/tv_address_bill"
+            android:layout_width="234dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="31dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="left"
+            android:text="Name"
+            android:textColor="@color/text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/et_personname3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_phone_bill" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="171dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="26dp"
+        android:text="@string/order_info"
+        android:textColor="@color/text"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="345dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/border"
+        android:padding="5dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#DADADADA">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Total quantity:"
+            android:textColor="@color/text"
+            app:layout_constraintBottom_toTopOf="@+id/textView3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="6dp"
+            android:text="Total Price:"
+            android:textColor="@color/text"
+            app:layout_constraintBottom_toTopOf="@+id/tv_state_billdetail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/tv_totalquantity_bill"
+            android:layout_width="95dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="10dp"
+            android:gravity="left"
+            android:text="123456"
+            android:textColor="@color/text"
+            app:layout_constraintBottom_toTopOf="@+id/tv_totalprice_bill"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_totalprice_bill"
+            android:layout_width="103dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="6dp"
+            android:gravity="left"
+            android:text="price"
+            android:textColor="@color/text"
+            app:layout_constraintBottom_toTopOf="@+id/tv_state_billdetail"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_totalquantity_bill" />
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="74dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="27dp"
+            android:background="@drawable/my_button_back"
+            android:text="@string/cancel"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_received"
+            android:layout_width="76dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="27dp"
+            android:background="@drawable/my_button"
+            android:text="@string/received"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_state_billdetail"
+            android:layout_width="195dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="200dp"
+            android:layout_marginBottom="17dp"
+            android:text="State"
+            android:textColor="@color/pink"
+            android:textSize="20sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_totalprice_bill" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>
