@@ -1,5 +1,6 @@
 package com.example.store.fracment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +67,7 @@ public class CategoryProductFragment extends Fragment {
         }
         //show
 
-        RecyclerView rv_category = view.findViewById(R.id.item_category);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) RecyclerView rv_category = view.findViewById(R.id.item_category);
         /*rv_category.setHasFixedSize(true);*/
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rv_category.setLayoutManager(layoutManager);
