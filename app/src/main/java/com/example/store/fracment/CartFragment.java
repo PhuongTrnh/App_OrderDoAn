@@ -29,8 +29,8 @@ import java.util.Locale;
 
 import com.example.store.db.DatabaseHandler;
 import com.example.store.utils.ItemCheckedListener;
-import com.example.store.utils.RecyclerItemTouchHelper;
 import com.example.store.R;
+import com.example.store.utils.RecyclerItemTouchHelper;
 import com.example.store.activity.order.ConfirmOrderActivity;
 import com.example.store.adapter.CartAdapter;
 import com.example.store.bean.Cart;
@@ -120,7 +120,7 @@ public class CartFragment extends Fragment implements RecyclerItemTouchHelper.Re
                 NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
                 if(cb_all.isChecked()){
                     db.checkedAllItemCart(Integer.parseInt(mParamIDUser));
-                    total_price = db.totalPriceCheckedInCart(Integer.parseInt(mParamIDUser));
+                    total_price = db.totalPriceCheckedInCart(Double.parseDouble(mParamIDUser));
                     adapter.selectAll();
                 }
                 else {

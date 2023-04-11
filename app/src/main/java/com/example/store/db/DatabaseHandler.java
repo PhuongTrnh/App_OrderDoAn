@@ -108,7 +108,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + "address NVARCHAR(255) NOT NULL,"
                 + "date TEXT NOT NULL,"
                 + "state INT DEFAULT 0," // 0. Dang giao 1. Da nhan 2. Da huy
-                + "totalprice DECIMAL NOT NULL,"
+                + "totalprice DOUBLE NOT NULL,"
                 + "CONSTRAINT fk_bill_iduser FOREIGN KEY(iduser) REFERENCES user(id)"
                 + ")";
 
@@ -774,7 +774,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return 0;
     }
 
-    public long totalPriceCheckedInCart(int iduser){
+    public double totalPriceCheckedInCart(double iduser){
         String query = "SELECT sum(product.price * cart.quantity) FROM " + TABLE_CART + " INNER JOIN " + TABLE_PRODUCT + " WHERE iduser = ? AND cart.checked = 1 AND cart.idproduct = product.id" ;
 
         SQLiteDatabase db = this.getReadableDatabase();
