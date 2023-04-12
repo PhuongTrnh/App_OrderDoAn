@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.store.R;
+import com.example.store.activity.bill.BillActivity;
 import com.example.store.activity.product.AddProductActivity;
 import com.example.store.activity.user.AddUserActivity;
 import com.example.store.activity.category.AddCategoryActivity;
@@ -108,10 +109,10 @@ public class ProfileFragment extends Fragment {
                             startActivity(intentChange);
                             break;
                         case 2:
-//                            Intent intentHistory = new Intent(getContext(), BillActivity.class);
-//                            intentHistory.putExtra(ARG_IDUSER, mParamIDUser);
-//                            startActivity(intentHistory);
-//                            break;
+                            Intent intentHistory = new Intent(getContext(), BillActivity.class);
+                            intentHistory.putExtra(ARG_IDUSER, mParamIDUser);
+                            startActivity(intentHistory);
+                            break;
                         case 3:
                             Intent intentAddProduct = new Intent(getContext(), AddProductActivity.class);
                             intentAddProduct.putExtra(ARG_IDUSER, mParamIDUser);
@@ -161,10 +162,10 @@ public class ProfileFragment extends Fragment {
                             startActivity(intentChange);
                             break;
                         case 2:
-//                            Intent intentHistory = new Intent(getContext(), BillActivity.class);
-//                            intentHistory.putExtra(ARG_IDUSER, mParamIDUser);
-//                            startActivity(intentHistory);
-//                            break;
+                            Intent intentHistory = new Intent(getContext(), BillActivity.class);
+                            intentHistory.putExtra(ARG_IDUSER, mParamIDUser);
+                            startActivity(intentHistory);
+                            break;
                         case 3:
                             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                             builder.setMessage("Are you sure you want to exit?")

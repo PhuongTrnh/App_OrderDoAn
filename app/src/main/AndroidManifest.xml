@@ -41,6 +41,8 @@
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.login.ForgotPasswordActivity" />
         <activity android:name=".activity.login.RegisterActivity" />
+        <activity android:name=".activity.bill.BillActivity" />
+        <activity android:name=".activity.bill.BillDetailActivity" />
         <activity
             android:name=".activity.login.LoginActivity"
             android:exported="true"
