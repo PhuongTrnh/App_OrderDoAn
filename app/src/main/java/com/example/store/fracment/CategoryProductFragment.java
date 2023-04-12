@@ -1,19 +1,14 @@
 package com.example.store.fracment;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.store.R;
-import com.example.store.adapter.CategoryProductAdapter;
-import com.example.store.bean.CategoryProduct;
-import com.example.store.bean.Product;
-import com.example.store.db.DatabaseHandler;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -22,7 +17,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+import com.example.store.db.DatabaseHandler;
+import com.example.store.R;
+import com.example.store.adapter.CategoryProductAdapter;
+import com.example.store.bean.CategoryProduct;
+import com.example.store.bean.Product;
+
 public class CategoryProductFragment extends Fragment {
+
+
     private static final String ARG_IDUSER = "iduser";
 
     private String mParamIDUser;

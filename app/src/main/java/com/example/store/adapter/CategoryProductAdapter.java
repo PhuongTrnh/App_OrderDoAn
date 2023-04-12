@@ -15,14 +15,14 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.store.R;
-import com.example.store.activity.product.ProductActivity;
-import com.example.store.bean.CategoryProduct;
-import com.example.store.constants.Resource;
-import com.example.store.utils.ItemClickListener;
-
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+
+import com.example.store.activity.product.ProductActivity;
+import com.example.store.utils.ItemClickListener;
+import com.example.store.R;
+import com.example.store.bean.CategoryProduct;
+import com.example.store.constants.Resource;
 
 public class CategoryProductAdapter extends RecyclerView.Adapter<CategoryProductAdapter.ViewHolder>{
 

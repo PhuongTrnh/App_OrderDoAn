@@ -22,7 +22,13 @@
             android:name=".activity.product.AddEditProductActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.category.AddCategoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.product.ProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.category.AddEditCategoryActivity"
             android:exported="false" />
         <activity
             android:name=".activity.user.AddEditUserActivity"

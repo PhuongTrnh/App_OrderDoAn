@@ -1,8 +1,8 @@
 package com.example.store.bean;
 
-import com.example.store.db.DatabaseHandler;
-
 import java.io.Serializable;
+
+import com.example.store.db.DatabaseHandler;
 
 public class CategoryProduct implements Serializable {
     private int iID;
@@ -55,8 +55,9 @@ public class CategoryProduct implements Serializable {
     ;
 
     public void insertDefaultCategory(DatabaseHandler db) {
-        db.insertCategoryProduct(new CategoryProduct("Sandwich", null));
-        db.insertCategoryProduct(new CategoryProduct("Drinks", null));
+        db.insertCategoryProduct(new CategoryProduct("Beverages", null));
+        db.insertCategoryProduct(new CategoryProduct("Snacks", null));
+        db.insertCategoryProduct(new CategoryProduct("Sanwiches", null));
     }
 
     @Override
