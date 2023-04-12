@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
+import com.example.store.activity.product.ProductActivity;
 import com.example.store.utils.ItemClickListener;
 import com.example.store.R;
 import com.example.store.bean.CategoryProduct;
@@ -97,10 +98,10 @@ public class CategoryProductAdapter extends RecyclerView.Adapter<CategoryProduct
             public void onClick(View view, int position, boolean isClick) {
                 if(isClick){
                     CategoryProduct categoryproduct = (CategoryProduct) mCategoryProducts.get(position);
-//                    Intent intentProduct = new Intent(mContext.getApplicationContext(), ProductActivity.class);
-//                    intentProduct.putExtra("idcategory",categoryproduct.getiID());
-//                    intentProduct.putExtra("iduser",mIDUser);
-//                    mContext.startActivity(intentProduct);
+                    Intent intentProduct = new Intent(mContext.getApplicationContext(), ProductActivity.class);
+                    intentProduct.putExtra("idcategory",categoryproduct.getiID());
+                    intentProduct.putExtra("iduser",mIDUser);
+                    mContext.startActivity(intentProduct);
                 }
             }
         });

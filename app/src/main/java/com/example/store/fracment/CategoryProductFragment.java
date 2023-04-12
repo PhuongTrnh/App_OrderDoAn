@@ -21,6 +21,7 @@ import com.example.store.db.DatabaseHandler;
 import com.example.store.R;
 import com.example.store.adapter.CategoryProductAdapter;
 import com.example.store.bean.CategoryProduct;
+import com.example.store.bean.Product;
 
 public class CategoryProductFragment extends Fragment {
 
@@ -63,8 +64,8 @@ public class CategoryProductFragment extends Fragment {
         if(lCategoryProducts.size() == 0){
             CategoryProduct categoryProduct = new CategoryProduct();
             categoryProduct.insertDefaultCategory(db);
-//            Product product = new Product();
-//            product.insertDefaultProduct(db);
+            Product product = new Product();
+            product.insertDefaultProduct(db);
         }
         //show
 
