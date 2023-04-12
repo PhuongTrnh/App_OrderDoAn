@@ -53,7 +53,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "name NVARCHAR(255) NOT NULL UNIQUE,"
                 + "category int NOT NULL,"
-                + "price DECIMAL DEFAULT(0) NOT NULL,"
+                + "price DOUBLE DEFAULT(0) NOT NULL,"
                 + "description VARCHAR(255),"
                 + "source BLOB,"
                 + "quantity int NOT NULL DEFAULT 0 CHECK(quantity < 1000),"
@@ -140,19 +140,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "    ('Sandwiches', NULL);\n";
         String INSERT_VALUE_PRODUCT = "INSERT INTO product (name, category, price, description, source, quantity, state)\n" +
                 "VALUES \n" +
-                "    ('Cola', 1, 2.99, '12 oz can', NULL, 100, 1),\n" +
-                "    ('Chips', 2, 1.49, 'Bag of potato chips', NULL, 50, 1),\n" +
-                "    ('Turkey Club', 3, 8.99, 'Bacon, lettuce, tomato, turkey', NULL, 25, 1),\n" +
-                "    ('Burger', 3, 6.99, 'Quarter-pound beef patty with lettuce, tomato, onion, and pickles', NULL, 50, 1),\n" +
-                "    ('Fries', 2, 2.49, 'Large order of French fries', NULL, 100, 1),\n" +
-                "    ('Hot Dog', 3, 3.99, 'All-beef hot dog with ketchup, mustard, and relish', NULL, 25, 1),\n" +
-                "    ('Pizza', 3, 12.99, 'Large cheese pizza with tomato sauce and crust', NULL, 10, 1),\n" +
-                "    ('Chicken Tenders', 3, 8.49, 'Crispy chicken strips with dipping sauce', NULL, 30, 1),\n" +
-                "    ('Soft Drink', 1, 1.99, '20 oz cup of soda', NULL, 75, 1),\n" +
-                "    ('Ice Cream', 2, 3.99, 'Single scoop of vanilla ice cream', NULL, 20, 1),\n" +
-                "    ('Taco', 3, 2.99, 'Beef or chicken taco with lettuce, tomato, and cheese', NULL, 40, 1),\n" +
-                "    ('Nachos', 2, 4.99, 'Tortilla chips with melted cheese and jalapenos', NULL, 15, 1),\n" +
-                "    ('Burrito', 3, 7.49, 'Large burrito with rice, beans, meat, cheese, and salsa', NULL, 20, 1);";
+                "    ('Cola', 1, 2000, '12 oz can', NULL, 100, 1),\n" +
+                "    ('Chips', 2, 1000, 'Bag of potato chips', NULL, 50, 1),\n" +
+                "    ('Turkey Club', 3, 8000, 'Bacon, lettuce, tomato, turkey', NULL, 25, 1),\n" +
+                "    ('Burger', 3, 6000, 'Quarter-pound beef patty with lettuce, tomato, onion, and pickles', NULL, 50, 1),\n" +
+                "    ('Fries', 2, 2000, 'Large order of French fries', NULL, 100, 1),\n" +
+                "    ('Hot Dog', 3, 3000, 'All-beef hot dog with ketchup, mustard, and relish', NULL, 25, 1),\n" +
+                "    ('Pizza', 3, 12000, 'Large cheese pizza with tomato sauce and crust', NULL, 10, 1),\n" +
+                "    ('Chicken Tenders', 3, 8000, 'Crispy chicken strips with dipping sauce', NULL, 30, 1),\n" +
+                "    ('Soft Drink', 1, 1000, '20 oz cup of soda', NULL, 75, 1),\n" +
+                "    ('Ice Cream', 2, 3000, 'Single scoop of vanilla ice cream', NULL, 20, 1),\n" +
+                "    ('Taco', 3, 2000, 'Beef or chicken taco with lettuce, tomato, and cheese', NULL, 40, 1),\n" +
+                "    ('Nachos', 2, 4000, 'Tortilla chips with melted cheese and jalapenos', NULL, 15, 1),\n" +
+                "    ('Burrito', 3, 7000, 'Large burrito with rice, beans, meat, cheese, and salsa', NULL, 20, 1);";
         db.execSQL(INSERT_VALUE_USER);
         db.execSQL(INSERT_VALUE_CATEGORY_PRODUCT);
         db.execSQL(INSERT_VALUE_PRODUCT);
