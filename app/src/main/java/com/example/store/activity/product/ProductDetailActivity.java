@@ -58,7 +58,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         Locale locale = new Locale("vn","VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         tv_price.setText(String.valueOf(currencyFormatter.format(product.getlPrice())));
-        tv_quantity.setText(product.getiQuantity() + "");
+        tv_quantity.setText("" + product.getiQuantity());
         if(product.getsSource() == null){
             Uri imgUri= Uri.parse(Resource.RESOURCE_PATH);
             iv_product.setImageURI(null);
@@ -162,5 +162,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         cv_increase = (CardView)findViewById(R.id.cv_increase);
         btn_add = (Button)findViewById(R.id.btn_add_to_cart);
         et_quantity.setTransformationMethod(null);
+        tv_quantity = (TextView) findViewById(R.id.tv_quantity);
     }
 }

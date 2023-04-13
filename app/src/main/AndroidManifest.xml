@@ -2,12 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.store">
 
-<<<<<<< HEAD
     <uses-permission android:name="android.permission.INTERNET" />
-=======
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
->>>>>>> 5255c31157bdad6542488f5df4cd795c9e8d7cc8
 
     <application
         android:allowBackup="true"
