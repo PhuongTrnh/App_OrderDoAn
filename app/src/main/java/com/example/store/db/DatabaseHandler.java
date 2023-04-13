@@ -213,6 +213,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.delete(TABLE_CATEGORYPRODUCT, "id = ? ", new String[]{String.valueOf(categoryProduct.getiID())});
+        db.delete(TABLE_PRODUCT, "category = ? ", new String[]{String.valueOf(categoryProduct.getiID())});
         db.close();
     }
 

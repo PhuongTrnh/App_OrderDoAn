@@ -8,6 +8,7 @@ import com.example.store.R;
 import com.example.store.bean.CategoryProduct;
 import com.example.store.db.DatabaseHandler;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -112,6 +113,7 @@ public class AddCategoryActivity extends AppCompatActivity {
                     .setMessage(selectedCategory.getsName()+". Are you sure you want to delete?")
                     .setCancelable(false)
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @SuppressLint("MissingPermission")
                         public void onClick(DialogInterface dialog, int id) {
                             deleteCategory(selectedCategory);
                             notificationManager.notify(100, builder.build());
