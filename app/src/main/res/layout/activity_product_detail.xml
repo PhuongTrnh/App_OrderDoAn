@@ -38,10 +38,37 @@
     <TextView
         android:id="@+id/tv_description"
         android:layout_width="match_parent"
-        android:layout_height="305dp"
+        android:layout_height="270dp"
         android:layout_margin="15dp"
         android:text="Mô tả"
         android:textColor="#444444" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="Có sẵn:"
+            android:textSize="14dp" />
+        <TextView
+            android:id="@+id/tv_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="10"
+            android:textSize="14dp"
+            android:textColor="@color/purple_200"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="sản phẩm"
+            android:textSize="14dp" />
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
