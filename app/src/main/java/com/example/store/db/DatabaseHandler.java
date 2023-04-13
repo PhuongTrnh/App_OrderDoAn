@@ -561,6 +561,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         return user;
     }
+    public User getUserByEmail(String email) {
+        String query = "SELECT id,name,email,phone,role,state,source,address FROM " + TABLE_USER + " WHERE email = ? ";
+        User user = new User();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, new String[]{email});
+        if (cursor.moveToFirst()) {
+            user.setiID(cursor.getInt(0));
+            user.setsName(cursor.getString(1));
+            user.setsEmail(cursor.getString(2));
+            user.setsPhone(cursor.getString(3));
+            user.setiRole(cursor.getInt(4));
+            user.setbState(cursor.getInt(5));
+            user.setsSource(cursor.getBlob(6));
+            user.setsAddress(cursor.getString(7));
+        }
+        cursor.close();
+        return user;
+    }
 
     //
     public int updateUser(User user) {
@@ -906,5 +924,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return billList;
     }
     //endregion
+
+    public boolean checkEmail(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Kiểm tra tài khoản trong bảng user
+        String[] columns = { "email" };
+        String selection = "email" + " = ?";
+        String[] selectionArgs = { email };
+        Cursor cursor = db.query("user", columns, selection, selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            cursor.close();
+            return true;
+        }
+        return false;
+    }
 }
 
