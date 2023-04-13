@@ -63,92 +63,73 @@ public class AddUserActivity extends AppCompatActivity {
 
         // Register the ListView for Context menu
         registerForContextMenu(this.listView);
-        createNotificationChannel();
-        builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_baseline_delete_24)
-                .setContentTitle("Thong bao")
-                .setContentText("Ban da xoa thanh cong")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        notificationManager = NotificationManagerCompat.from(this);
-
-
-
     }
 
     private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "user channel";
             String description = "Xoa user";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
     }
+
     @Override
     public void onCreateContextMenu(ContextMenu menu, View view,
-                                    ContextMenu.ContextMenuInfo menuInfo)    {
+                                    ContextMenu.ContextMenuInfo menuInfo) {
 
         super.onCreateContextMenu(menu, view, menuInfo);
         menu.setHeaderTitle("Select The Action");
 
-        menu.add(0, MENU_ITEM_CREATE , 1, "Create user");
-        menu.add(0, MENU_ITEM_EDIT , 2, "Edit user");
+        menu.add(0, MENU_ITEM_CREATE, 1, "Create user");
+        menu.add(0, MENU_ITEM_EDIT, 2, "Edit user");
         menu.add(0, MENU_ITEM_DELETE, 4, "Delete user");
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item){
+    public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo
                 info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        final User selectedUser = (User)this.listView.getItemAtPosition(info.position);
+        final User selectedUser = (User) this.listView.getItemAtPosition(info.position);
 
-        if(item.getItemId() == MENU_ITEM_VIEW){
-            Toast.makeText(getApplicationContext(),selectedUser.toString(), Toast.LENGTH_LONG).show();
-        }
-        else if(item.getItemId() == MENU_ITEM_CREATE){
+        if (item.getItemId() == MENU_ITEM_VIEW) {
+            Toast.makeText(getApplicationContext(), selectedUser.toString(), Toast.LENGTH_LONG).show();
+        } else if (item.getItemId() == MENU_ITEM_CREATE) {
             Intent intent = new Intent(this, AddEditUserActivity.class);
 
             // Start AddEditCategoryActivity, (with feedback).
             this.startActivityForResult(intent, MY_REQUEST_CODE);
-        }
-        else if(item.getItemId() == MENU_ITEM_EDIT ){
+        } else if (item.getItemId() == MENU_ITEM_EDIT) {
             Intent intent = new Intent(this, AddEditUserActivity.class);
-            intent.putExtra("user",  selectedUser);
+            intent.putExtra("user", selectedUser);
 
             // Start AddEditCategoryActivity, (with feedback).
-            this.startActivityForResult(intent,MY_REQUEST_CODE);
-        }
-        else if(item.getItemId() == MENU_ITEM_DELETE){
+            this.startActivityForResult(intent, MY_REQUEST_CODE);
+        } else if (item.getItemId() == MENU_ITEM_DELETE) {
             // Ask before deleting.
             new AlertDialog.Builder(this)
-                    .setMessage(selectedUser.getsName()+". Are you sure you want to delete?")
+                    .setMessage(selectedUser.getsName() + ". Are you sure you want to delete?")
                     .setCancelable(false)
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
+                            Toast.makeText(AddUserActivity.this, "Xoá thành công", Toast.LENGTH_SHORT).show();
                             deleteProduct(selectedUser);
-
-                            // notificationId is a unique int for each notification that you must define
-                            notificationManager.notify(100, builder.build());
                         }
                     })
                     .setNegativeButton("No", null)
                     .show();
-        }
-        else {
+        } else {
             return false;
         }
         return true;
     }
 
     // Delete a record
-    private void deleteProduct(User user)  {
+    private void deleteProduct(User user) {
         DatabaseHandler db = new DatabaseHandler(this);
         db.deleteUser(user);
         this.userList.remove(user);
@@ -156,8 +137,6 @@ public class AddUserActivity extends AppCompatActivity {
         this.listViewAdapter.notifyDataSetChanged();
     }
 
-    // When AddEditCategoryActivity completed, it sends feedback.
-    // (If you start it using startActivityForResult ())
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
