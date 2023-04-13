@@ -861,6 +861,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put("state", bill.getiState());
         return db.update(TABLE_BILL, values, "id = ?", new String[]{String.valueOf(bill.getiID())});
     }
+    public List<Bill> getListBill() {
+        List<Bill> billList = new ArrayList<Bill>();
+        String query = "SELECT id, date, state FROM " + TABLE_BILL + " ORDER BY id DESC";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Bill bill = new Bill();
+                bill.setiID(cursor.getInt(0));
+                bill.setsDate(cursor.getString(1));
+                bill.setiState(cursor.getInt(2));
+                // Adding contact to list
+                billList.add(bill);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return billList;
+    }
 
     public List<Bill> getListBillOfUser(int iduser){
         List<Bill> billList = new ArrayList<Bill>();
