@@ -13,6 +13,8 @@ import android.widget.ListView;
 import java.util.List;
 
 import com.example.store.adapter.BillAdapter;
+import com.example.store.bean.Role;
+import com.example.store.bean.User;
 import com.example.store.db.DatabaseHandler;
 import com.example.store.R;
 import com.example.store.bean.Bill;
@@ -32,7 +34,12 @@ public class BillActivity extends AppCompatActivity {
         idUser = getIntent().getStringExtra("iduser");
         db = new DatabaseHandler(this);
         Mapping();
-        lBill = db.getListBillOfUser(Integer.parseInt(idUser));
+        User user = db.getUser(Integer.parseInt(idUser));
+        if (user.getiRole() == 1) {
+            lBill = db.getListBill();
+        } else {
+            lBill = db.getListBillOfUser(Integer.parseInt(idUser));
+        }
         if(lBill.size() != 0){
             BillAdapter adapter = new BillAdapter(this,lBill);
             lv_bill.setAdapter(adapter);

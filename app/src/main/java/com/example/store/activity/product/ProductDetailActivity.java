@@ -1,5 +1,6 @@
 package com.example.store.activity.product;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -44,25 +45,31 @@ public class ProductDetailActivity extends AppCompatActivity {
     private List<Cart> lCarts;
     private Product product;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
         Mapping();
         db = new DatabaseHandler(getApplicationContext());
-        int id = getIntent().getIntExtra("idproduct",0);
+
+        int product_id = getIntent().getIntExtra("idproduct",0);
         String iduser = getIntent().getStringExtra("iduser");
+
         et_quantity.setText("1");
         quantityCart_temp = Integer.parseInt(et_quantity.getText().toString());
         cv_decrease.setEnabled(false);
-        Product product = db.getProduct(id);
+
+        Product product = db.getProduct(product_id);
         tv_name.setText(product.getsName());
         tv_description.setText(product.getsDescription());
         Locale locale = new Locale("vn","VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         tv_price.setText(String.valueOf(currencyFormatter.format(product.getlPrice())));
         quantityProduct_temp = Integer.parseInt(et_quantity.getText().toString());
+
         tv_quantity.setText("" + product.getiQuantity());
+
         if(product.getsSource() == null){
             Uri imgUri= Uri.parse(Resource.RESOURCE_PATH);
             iv_product.setImageURI(null);
@@ -71,6 +78,11 @@ public class ProductDetailActivity extends AppCompatActivity {
         else{
             Bitmap bitmap = BitmapFactory.decodeByteArray(product.getsSource(), 0, product.getsSource().length);
             iv_product.setImageBitmap(bitmap);
+        }
+
+        if (product.getiQuantity() == 0) {
+            cv_increase.setEnabled(false);
+            btn_add.setEnabled(false);
         }
         et_quantity.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -135,7 +147,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 lCarts = db.getListCartOfUser(Integer.parseInt(iduser));
                 Cart cart;
-                int idcart = db.hasProductInCart(id,Integer.parseInt(iduser));
+                int idcart = db.hasProductInCart(product_id,Integer.parseInt(iduser));
                 if(idcart != 0){
                     Cart cart_quantity = db.getCart(idcart);
                     if(cart_quantity.getiQuantity() >= product.getiQuantity()){
@@ -148,7 +160,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                     }
                 }
                 else {
-                    cart = new Cart(id,Integer.parseInt(iduser),quantityCart_temp);
+                    cart = new Cart(product_id,Integer.parseInt(iduser),quantityCart_temp);
                     db.insertItemCart(cart);
                 }
                 Toast.makeText(ProductDetailActivity.this, product.getsName() + " has been added to your cart.", Toast.LENGTH_LONG).show();
