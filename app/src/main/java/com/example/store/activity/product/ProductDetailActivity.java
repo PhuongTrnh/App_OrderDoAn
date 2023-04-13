@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.example.store.R;
+import com.example.store.bean.Bill;
+import com.example.store.bean.BillDetail;
 import com.example.store.bean.Cart;
 import com.example.store.bean.Product;
 import com.example.store.constants.Resource;
@@ -37,8 +39,10 @@ public class ProductDetailActivity extends AppCompatActivity {
     CardView cv_increase;
     Button btn_add;
     DatabaseHandler db;
-    int quantity_temp;
+    int quantityCart_temp;
+    int quantityProduct_temp;
     private List<Cart> lCarts;
+    private Product product;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +52,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         db = new DatabaseHandler(getApplicationContext());
         int id = getIntent().getIntExtra("idproduct",0);
         String iduser = getIntent().getStringExtra("iduser");
-
         et_quantity.setText("1");
-        quantity_temp = Integer.parseInt(et_quantity.getText().toString());
+        quantityCart_temp = Integer.parseInt(et_quantity.getText().toString());
         cv_decrease.setEnabled(false);
         Product product = db.getProduct(id);
         tv_name.setText(product.getsName());
@@ -58,6 +61,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         Locale locale = new Locale("vn","VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         tv_price.setText(String.valueOf(currencyFormatter.format(product.getlPrice())));
+        quantityProduct_temp = Integer.parseInt(et_quantity.getText().toString());
         tv_quantity.setText("" + product.getiQuantity());
         if(product.getsSource() == null){
             Uri imgUri= Uri.parse(Resource.RESOURCE_PATH);
@@ -80,16 +84,16 @@ public class ProductDetailActivity extends AppCompatActivity {
                         String regex = "[0-9]+[\\.]?[0-9]*";
                         if (v.getText().length() <= 0 || v.getText().toString() == "0" || !Pattern.matches(regex, v.getText().toString())) {
                             Toast.makeText(ProductDetailActivity.this, "Invalid input", Toast.LENGTH_SHORT).show();
-                            et_quantity.setText(String.valueOf(quantity_temp));
+                            et_quantity.setText(String.valueOf(quantityCart_temp));
                         } else if (Integer.parseInt(v.getText().toString()) > product.getiQuantity()) {
                             Toast.makeText(ProductDetailActivity.this, "Product exceeds the allowed quantity", Toast.LENGTH_SHORT).show();
-                            et_quantity.setText(String.valueOf(quantity_temp));
+                            et_quantity.setText(String.valueOf(quantityCart_temp));
                         }
                         else if(Integer.parseInt(v.getText().toString()) == 1){
                             cv_decrease.setEnabled(false);
                         }
                         else {
-                            quantity_temp = Integer.parseInt(et_quantity.getText().toString());
+                            quantityCart_temp = Integer.parseInt(et_quantity.getText().toString());
                             cv_decrease.setEnabled(true);
                         }
                         return true; // consume.
@@ -102,9 +106,9 @@ public class ProductDetailActivity extends AppCompatActivity {
         cv_decrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(quantity_temp > 1){
-                    quantity_temp = quantity_temp - 1;
-                    et_quantity.setText(String.valueOf(quantity_temp));
+                if(quantityCart_temp > 1){
+                    quantityCart_temp = quantityCart_temp - 1;
+                    et_quantity.setText(String.valueOf(quantityCart_temp));
                 }
                 else cv_decrease.setEnabled(false);
             }
@@ -113,13 +117,13 @@ public class ProductDetailActivity extends AppCompatActivity {
         cv_increase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (quantity_temp == product.getiQuantity()) {
+                if (quantityCart_temp == product.getiQuantity()) {
                     Toast.makeText(ProductDetailActivity.this, "Product exceeds the allowed quantity", Toast.LENGTH_SHORT).show();
-                    et_quantity.setText(String.valueOf(quantity_temp));
+                    et_quantity.setText(String.valueOf(quantityCart_temp));
                 }
                 else {
-                    quantity_temp = quantity_temp + 1;
-                    et_quantity.setText(String.valueOf(quantity_temp));
+                    quantityCart_temp = quantityCart_temp + 1;
+                    et_quantity.setText(String.valueOf(quantityCart_temp));
                 }
 
                 cv_decrease.setEnabled(true);
@@ -139,18 +143,19 @@ public class ProductDetailActivity extends AppCompatActivity {
                     }
                     else {
                         cart = db.getCart(idcart);
-                        cart.setiQuantity(quantity_temp + cart.getiQuantity());
+                        cart.setiQuantity(quantityCart_temp + cart.getiQuantity());
                         db.updateQuantityCart(cart);
                     }
                 }
                 else {
-                    cart = new Cart(id,Integer.parseInt(iduser),quantity_temp);
+                    cart = new Cart(id,Integer.parseInt(iduser),quantityCart_temp);
                     db.insertItemCart(cart);
                 }
                 Toast.makeText(ProductDetailActivity.this, product.getsName() + " has been added to your cart.", Toast.LENGTH_LONG).show();
             }
         });
     }
+
 
     private void Mapping(){
         iv_product = (ImageView)findViewById(R.id.iv_product);

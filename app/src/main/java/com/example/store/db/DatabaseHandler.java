@@ -13,6 +13,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -325,8 +326,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.delete(TABLE_PRODUCT, "id = ? ", new String[]{String.valueOf(product.getiID())});
         db.close();
     }
-
-
+    public void updateQuantityProduct(int quantity, int product_id ) {
+        String query = "UPDATE product SET quantity = quantity - ? WHERE id = ?";
+        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteStatement statement = db.compileStatement(query);
+        statement.clearBindings();
+        statement.bindLong(1, quantity);
+        statement.bindLong(2, product_id);
+        statement.execute();
+        db.close();
+    }
 
     public void deleteUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -719,14 +728,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return cartList;
     }
 
-    public int hasProductInCart(int idproduct, int iduser){
+    public int hasProductInCart(int idproduct, int iduser) {
         List<Cart> cartList = new ArrayList<Cart>();
-        String query = "SELECT id FROM " + TABLE_CART + " WHERE iduser = ? AND idproduct = ? " ;
+        String query = "SELECT id FROM " + TABLE_CART + " WHERE iduser = ? AND idproduct = ? ";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, new String[]{iduser + "", idproduct + ""});
-        if(cursor.getCount() > 0)
-        {
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             return cursor.getInt(0);
         }
@@ -894,8 +902,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //region BILL DETAIL
     public void insertBillDetail(BillDetail bill){
+        updateQuantityProduct(bill.getiQuantity(),bill.getiIDProduct());
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put("idbill", bill.getiIDBill());
         values.put("idproduct", bill.getiIDProduct());
