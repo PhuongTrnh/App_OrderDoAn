@@ -34,19 +34,24 @@ public class ChangePassActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String newPass = et_newpassword.getText().toString();
                 String confirmNewPass = et_confirmnewpassword.getText().toString();
-                if (newPass.equals(confirmNewPass)) {
+                // kiểm tra validate của 2 mật khẩu trên theo phần đăng ký user (đúng 8 ký tự trở lên)
+                if (newPass.length() >= 8 && confirmNewPass.length()>=8 && newPass.equals(confirmNewPass)) {
                     DatabaseHandler db = new DatabaseHandler(ChangePassActivity.this);
                     User user = db.getUserByEmail(email);
                     user.setsPassword(newPass);
                     db.changePassword(user);
 
-                    Intent i = new Intent(ChangePassActivity.this, LoginActivity.class);
+                    // Nếu cập nhật thành công thì chuyển sang giao diện login và kèm theo email đăng nhập để nhập sẵn email
+                    Intent backlo = new Intent(ChangePassActivity.this, LoginActivity.class);
+                    startActivity(backlo);
                     Toast.makeText(ChangePassActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                    i.putExtra("KEY_USER_FROM_REGISTER", email);
-                    setResult(RESULT_OK, i);
+                    backlo.putExtra("email", email);
+                    backlo.putExtra("password", "");
+                    backlo.putExtra("KEY_USER_FROM_REGISTER", email);
+                    setResult(RESULT_OK, backlo);
                     finish();
                 } else {
-                    Toast.makeText(ChangePassActivity.this, "Mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangePassActivity.this, "Mật khẩu không trùng khớp hoặc mật khẩu dưới 8 kí tự", Toast.LENGTH_SHORT).show();
                     et_confirmnewpassword.setText("");
                 }
             }

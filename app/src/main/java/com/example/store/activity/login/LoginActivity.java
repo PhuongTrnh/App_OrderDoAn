@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     public static final String KEY_USER_TO_MAIN = "KEY_USER_TO_MAIN";
     public static final String KEY_USER_FROM_REGISTER = "KEY_USER_FROM_REGISTER";
     SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +49,12 @@ public class LoginActivity extends AppCompatActivity {
         et_email.setText(sharedPreferences.getString("username", ""));
         et_password.setText(sharedPreferences.getString("password", ""));
         cb_rememberMe.setChecked(sharedPreferences.getBoolean("checked", false));
+
+//        EditText etEmail = findViewById(R.id.et_username);
+//        String email = getIntent().getStringExtra("email");
+//        if (email != null) {
+//            etEmail.setText(email);
+//        }
 
         btn_register = (Button)findViewById(R.id.btn_register);
         btn_register.setOnClickListener(new View.OnClickListener() {

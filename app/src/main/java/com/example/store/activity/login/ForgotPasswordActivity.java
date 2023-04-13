@@ -39,6 +39,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String email = et_mail.getText().toString();
+
                 DatabaseHandler db = new DatabaseHandler(ForgotPasswordActivity.this);
                 if (db.checkEmail(email)) {
                     Random random = new Random();
