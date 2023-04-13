@@ -77,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (checkValidate()) {
                     ImageViewToByteArray();
-                    db.registerUser(new User(nameInput, emailInput, phoneInput, passwordInput, 1, 1, 1, source, ""));
+                    db.registerUser(new User(nameInput, emailInput, phoneInput, passwordInput, 1, 1, 2, source, ""));
                     int id = db.getIDUser(emailInput);
                     Toast.makeText(RegisterActivity.this, "Đăng ký thành công! Vui lòng đăng nhập để vào ứng dụng.", Toast.LENGTH_LONG).show();
 
